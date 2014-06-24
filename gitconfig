@@ -10,7 +10,7 @@
 [alias]
   aa = add --all
   ap = add --patch
-  cam = commit -am
+  cm = commit -m
   ci = commit -v
   co = checkout
   p = push
