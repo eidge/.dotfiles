@@ -11,6 +11,7 @@ call vundle#begin()
   Plugin 'thoughtbot/vim-rspec'
   Plugin 'jgdavey/tslime.vim'
   Plugin 'rstacruz/sparkup.git'
+  Plugin 'vim-scripts/Rename'
 
   " Colorschemes
   Plugin 'vim-scripts/Railscasts-Theme-GUIand256color'
@@ -62,10 +63,11 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-let g:rspec_command = 'call Send_to_Tmux("bundle exec spring rspec {spec}\n")'
+let g:rspec_command = 'call Send_to_Tmux("bundle exec rspec {spec}\n")'
 nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>s :call RunNearestSpec()<CR>
 nnoremap <Leader>l :call RunLastSpec()<CR>
+nnoremap <Leader>a :call RunAllSpecs()<CR>
 
 function! InsertTabWrapper()
   let col = col('.') - 1
