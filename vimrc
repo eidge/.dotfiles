@@ -12,6 +12,13 @@ call vundle#begin()
   Plugin 'jgdavey/tslime.vim'
   Plugin 'rstacruz/sparkup.git'
   Plugin 'vim-scripts/Rename'
+  Plugin 'MarcWeber/vim-addon-mw-utils'
+  Plugin 'tomtom/tlib_vim'
+  Plugin 'garbas/vim-snipmate'
+  Plugin 'honza/vim-snippets'
+  Plugin 'ervandew/supertab'
+  Plugin 'rizzatti/dash.vim'
+  Plugin 'tpope/vim-fugitive.git'
 
   " Colorschemes
   Plugin 'vim-scripts/Railscasts-Theme-GUIand256color'
@@ -63,7 +70,7 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-let g:rspec_command = 'call Send_to_Tmux("bundle exec rspec {spec}\n")'
+let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>s :call RunNearestSpec()<CR>
 nnoremap <Leader>l :call RunLastSpec()<CR>
@@ -89,8 +96,8 @@ function! InsertTabWrapper()
     return "\<c-p>"
   endif
 endfunction
-inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <S-Tab> <c-n>
+"inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
+"inoremap <S-Tab> <c-n>
 
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax on

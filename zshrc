@@ -10,6 +10,7 @@ export EDITOR='vim'
 ZSH_THEME="avit"
 
 alias tmux='TERM=xterm-256color tmux'
+alias be='bundle exec'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
