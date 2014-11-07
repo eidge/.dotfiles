@@ -11,6 +11,7 @@ ZSH_THEME="avit"
 
 alias tmux='TERM=xterm-256color tmux'
 alias be='bundle exec'
+
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -52,13 +53,13 @@ alias be='bundle exec'
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git ruby rails capistrano coffee github rake-fast rake ssh-agent tmux)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="./bin:/home/vagrant/.rbenv/shims:/home/vagrant/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="./bin:$HOME/npm/bin:/home/vagrant/.rbenv/shims:/home/vagrant/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment

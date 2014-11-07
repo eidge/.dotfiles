@@ -19,6 +19,16 @@ call vundle#begin()
   Plugin 'ervandew/supertab'
   Plugin 'rizzatti/dash.vim'
   Plugin 'tpope/vim-fugitive.git'
+  Plugin 'kchmck/vim-coffee-script'
+  Plugin 'mattn/webapi-vim'
+  Plugin 'mattn/gist-vim'
+  Plugin 'rking/ag.vim'
+  Plugin 'henrik/vim-qargs'
+  Plugin 'scrooloose/syntastic'
+  Plugin 'vim-ruby/vim-ruby'
+  Plugin 'vim-scripts/ctags.vim'
+  Plugin 'vim-scripts/matchit.zip'
+  Plugin 'vim-scripts/tComment'
 
   " Colorschemes
   Plugin 'vim-scripts/Railscasts-Theme-GUIand256color'
@@ -63,6 +73,37 @@ set pastetoggle=<F2> " Set paste mode using F2 for copying stuff
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+" Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
+let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
+
+" Index ctags from any project, including those outside Rails
+map <Leader>ct :!ctags -R .<CR>
+
+" Switch between the last two files
+nnoremap <leader><leader> <c-^>
+
+" Get off my lawn
+nnoremap <Left> :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up> :echoe "Use k"<CR>
+nnoremap <Down> :echoe "Use j"<CR>
+
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+
 imap jk <Esc>
 let mapleader=","
 map <C-h> <C-w>h
@@ -70,7 +111,7 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
+let g:rspec_command = 'call Send_to_Tmux("tmux set -g status-left-fg white && tmux set -g status-left \"  Running {spec}\" && rspec {spec} --fail-fast && (tmux set -g status-left \"  Tests passed\" && tmux set -g status-left-fg green) || (tmux set -g status-left \"  Tests failed\" && tmux set -g status-left-fg red) \n")'
 nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>s :call RunNearestSpec()<CR>
 nnoremap <Leader>l :call RunLastSpec()<CR>
