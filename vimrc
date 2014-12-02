@@ -29,6 +29,7 @@ call vundle#begin()
   Plugin 'vim-scripts/ctags.vim'
   Plugin 'vim-scripts/matchit.zip'
   Plugin 'vim-scripts/tComment'
+  Plugin 'taglist.vim'
 
   " Colorschemes
   Plugin 'vim-scripts/Railscasts-Theme-GUIand256color'
@@ -88,8 +89,14 @@ endif
 " Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
 let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 
-" Index ctags from any project, including those outside Rails
+let mapleader=","
+
+" Ctags stuff
+let Tlist_Show_One_File=1
 map <Leader>ct :!ctags -R .<CR>
+map <Leader><Tab> :TlistOpen<CR>
+map <Leader>gd tjump<CR>
+map <Leader>gd "zyiw:exe "tj ".@z.""<CR>
 
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
@@ -105,7 +112,6 @@ set splitbelow
 set splitright
 
 imap jk <Esc>
-let mapleader=","
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
