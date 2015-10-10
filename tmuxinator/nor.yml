@@ -1,7 +1,7 @@
 # ~/.tmuxinator/no.yml
 
 name: nor
-root: ~/nourish-organizations
+root: ~/nourish-organisations
 
 # Optional tmux socket
 # socket_name: foo
@@ -22,5 +22,5 @@ windows:
   - editor: vim
   - shell: git fetch
   - console: bundle exec spring rails c
-  - server: bundle exec spring rails s
+  - server: bundle exec spring rails s -b 0.0.0.0
   - spec: ls

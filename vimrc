@@ -29,13 +29,26 @@ call vundle#begin()
   Plugin 'vim-scripts/ctags.vim'
   Plugin 'vim-scripts/matchit.zip'
   Plugin 'vim-scripts/tComment'
+  Plugin 'aquach/vim-http-client'
+  Plugin 'mustache/vim-mustache-handlebars'
   Plugin 'taglist.vim'
+  Plugin 'elixir-lang/vim-elixir'
+  Plugin 'BjRo/vim-extest'
+  Plugin 'fatih/vim-go'
+  Plugin 'nsf/gocode', {'rtp': 'vim/'}
+  Plugin 'scrooloose/nerdtree'
+  Plugin 'jiangmiao/auto-pairs'
+  Plugin 'NLKNguyen/papercolor-theme'
+  Plugin 'othree/yajs.vim'
+  Plugin 'mxw/vim-jsx'
 
   " Colorschemes
   Plugin 'vim-scripts/Railscasts-Theme-GUIand256color'
 call vundle#end()            " required
 
 filetype plugin indent on    " required
+
+autocmd BufRead,BufNewFile *.es6 setfiletype javascript
 
 set tabstop=2 shiftwidth=2 shiftround expandtab
 set t_Co=256
@@ -69,10 +82,17 @@ set hlsearch      " highlight search terms
 set incsearch     " show search matches as
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
+
+" No need to track whitespace for go, the linter will take care of it, on save
+au filetype go set nolist
+
 autocmd filetype html,xml set listchars-=tab:>.
 set pastetoggle=<F2> " Set paste mode using F2 for copying stuff
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+let g:syntastic_javascript_checkers=['jshint']
+let g:mustache_abbreviations = 1
+let g:jsx_ext_required = 1 " Allow JSX in normal JS files
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -87,13 +107,16 @@ if executable('ag')
 endif
 
 " Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
-let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
+let g:Tlist_Ctags_Cmd="ctags --exclude='*.js' --exclude='vendor/**/*'"
 
 let mapleader=","
 
+" NerdTREE
+map <Leader>n :NERDTreeToggle<CR>
+
 " Ctags stuff
 let Tlist_Show_One_File=1
-map <Leader>ct :!ctags -R .<CR>
+map <Leader>ct :!ctags -R --exclude='vendor/**/*' .<CR>
 map <Leader><Tab> :TlistOpen<CR>
 map <Leader>gd tjump<CR>
 map <Leader>gd "zyiw:exe "tj ".@z.""<CR>
@@ -118,10 +141,19 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 
 let g:rspec_command = 'call Send_to_Tmux("tmux set -g status-left-fg white && tmux set -g status-left \"  Running {spec}\" && rspec {spec} --fail-fast && (tmux set -g status-left \"  Tests passed\" && tmux set -g status-left-fg green) || (tmux set -g status-left \"  Tests failed\" && tmux set -g status-left-fg red) \n")'
-nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
-nnoremap <Leader>s :call RunNearestSpec()<CR>
-nnoremap <Leader>l :call RunLastSpec()<CR>
-nnoremap <Leader>a :call RunAllSpecs()<CR>
+au FileType ruby map <Leader>t :call RunCurrentSpecFile()<CR>
+au FileType ruby map <Leader>s :call RunNearestSpec()<CR>
+au FileType ruby map <Leader>l :call RunLastSpec()<CR>
+au FileType ruby map <Leader>a :call RunAllSpecs()<CR>
+
+au FileType elixir map <leader>et :ExTestRunFile<CR>
+au FileType elixir map <leader>es :ExTestRunMethod<CR>
+au FileType elixir map <leader>el :ExTestRunLast<CR>
+
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
@@ -165,17 +197,5 @@ augroup vimrcEx
   autocmd BufRead,BufNewFile *.md setlocal textwidth=80
 augroup END
 
-" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
-if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects
-  " .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-
 colorscheme railscasts
+highlight Pmenu ctermbg=white ctermfg=black
