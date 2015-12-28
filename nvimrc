@@ -4,26 +4,27 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required for vundle
 
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.nvim/bundle/Vundle.vim
 
 call vundle#begin()
   Plugin 'VundleVim/Vundle.vim' " required for vundle to work
   Plugin 'kien/ctrlp.vim'
   Plugin 'scrooloose/nerdtree'
-  Plugin 'jiangmiao/auto-pairs' " match brackets
-  Plugin 'mattn/webapi-vim'     " needed for mattn/gist-vim
-  Plugin 'mattn/gist-vim'       " create gists from vim
-  Plugin 'rking/ag.vim'         " use Ag from vim
-  Plugin 'vim-scripts/Rename'   " Rename files from vim
-  Plugin 'tpope/vim-surround'   " Surround movements
-  Plugin 'tpope/vim-repeat'     " Surround movements
-  Plugin 'tpope/vim-rails'      " Rails commands like migrations and partial extract
-  Plugin 'thoughtbot/vim-rspec' " Rspec commands inside vim
-  Plugin 'jgdavey/tslime.vim'   " Send commands to tmux
-  Plugin 'scrooloose/syntastic' " Send commands to tmux
-  Plugin 'ervandew/supertab'    " Tab for auto-completion
-  Plugin 'rstacruz/sparkup.git' " HTML fancy css like completion
-  Plugin 'tpope/vim-fugitive'   " Git binds for vim
+  Plugin 'jiangmiao/auto-pairs'   " match brackets
+  Plugin 'mattn/webapi-vim'       " needed for mattn/gist-vim
+  Plugin 'mattn/gist-vim'         " create gists from vim
+  Plugin 'rking/ag.vim'           " use Ag from vim
+  Plugin 'vim-scripts/Rename'     " Rename files from vim
+  Plugin 'tpope/vim-surround'     " Surround movements
+  Plugin 'tpope/vim-repeat'       " Surround movements
+  Plugin 'tpope/vim-rails'        " Rails commands like migrations and partial extract
+  Plugin 'thoughtbot/vim-rspec'   " Rspec commands inside vim
+  Plugin 'jgdavey/tslime.vim'     " Send commands to tmux
+  Plugin 'scrooloose/syntastic'   " Send commands to tmux
+  Plugin 'ervandew/supertab'      " Tab for auto-completion
+  Plugin 'rstacruz/sparkup.git'   " HTML fancy css like completion
+  Plugin 'tpope/vim-fugitive'     " Git binds for vim
+  Plugin 'elixir-lang/vim-elixir' " Elixir syntax highlighting and indentation
 
   " Colors
   Plugin 'altercation/Vim-colors-solarized'
@@ -153,7 +154,7 @@ let g:syntastic_html_tidy_ignore_errors = [" proprietary attribute \"ng-"]
 let g:syntastic_javascript_checkers = ['jshint']
 " }}}
 " Testing {{{
-let g:rspec_command = 'call Send_to_Tmux("tmux set -g status-left-fg white && tmux set -g status-left \"  Running {spec}\" && rspec {spec} --fail-fast && (tmux set -g status-left \"  Tests passed\" && tmux set -g status-left-fg green) || (tmux set -g status-left \"  Tests failed\" && tmux set -g status-left-fg red) \n")'
+let g:rspec_command = 'call Send_to_Tmux("tmux set -g status-left-fg white && tmux set -g status-left \"  Running {spec}\" && bundle exec rspec {spec} --fail-fast && (tmux set -g status-left \"  Tests passed\" && tmux set -g status-left-fg green) || (tmux set -g status-left \"  Tests failed\" && tmux set -g status-left-fg red) \n")'
 au FileType ruby map <Leader>t :call RunCurrentSpecFile()<CR>
 au FileType ruby map <Leader>s :call RunNearestSpec()<CR>
 au FileType ruby map <Leader>l :call RunLastSpec()<CR>
