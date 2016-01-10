@@ -10,21 +10,25 @@ call vundle#begin()
   Plugin 'VundleVim/Vundle.vim' " required for vundle to work
   Plugin 'kien/ctrlp.vim'
   Plugin 'scrooloose/nerdtree'
-  Plugin 'jiangmiao/auto-pairs'   " match brackets
-  Plugin 'mattn/webapi-vim'       " needed for mattn/gist-vim
-  Plugin 'mattn/gist-vim'         " create gists from vim
-  Plugin 'rking/ag.vim'           " use Ag from vim
-  Plugin 'vim-scripts/Rename'     " Rename files from vim
-  Plugin 'tpope/vim-surround'     " Surround movements
-  Plugin 'tpope/vim-repeat'       " Surround movements
-  Plugin 'tpope/vim-rails'        " Rails commands like migrations and partial extract
-  Plugin 'thoughtbot/vim-rspec'   " Rspec commands inside vim
-  Plugin 'jgdavey/tslime.vim'     " Send commands to tmux
-  Plugin 'scrooloose/syntastic'   " Send commands to tmux
-  Plugin 'ervandew/supertab'      " Tab for auto-completion
-  Plugin 'rstacruz/sparkup.git'   " HTML fancy css like completion
-  Plugin 'tpope/vim-fugitive'     " Git binds for vim
-  Plugin 'elixir-lang/vim-elixir' " Elixir syntax highlighting and indentation
+  Plugin 'jiangmiao/auto-pairs'       " match brackets
+  Plugin 'mattn/webapi-vim'           " needed for mattn/gist-vim
+  Plugin 'mattn/gist-vim'             " create gists from vim
+  Plugin 'rking/ag.vim'               " use Ag from vim
+  Plugin 'vim-scripts/Rename'         " Rename files from vim
+  Plugin 'tpope/vim-surround'         " Surround movements
+  Plugin 'tpope/vim-repeat'           " Surround movements
+  Plugin 'tpope/vim-rails'            " Rails commands like migrations and partial extract
+  Plugin 'thoughtbot/vim-rspec'       " Rspec commands inside vim
+  Plugin 'jgdavey/tslime.vim'         " Send commands to tmux
+  Plugin 'scrooloose/syntastic'       " Send commands to tmux
+  Plugin 'ervandew/supertab'          " Tab for auto-completion
+  Plugin 'rstacruz/sparkup.git'       " HTML fancy css like completion
+  Plugin 'tpope/vim-fugitive'         " Git binds for vim
+  Plugin 'elixir-lang/vim-elixir'     " Elixir syntax highlighting and indentation
+  Plugin 'leafgarland/typescript-vim' " Typescript syntax highlighting and indentation
+  Plugin 'Quramy/tsuquyomi'           " Typescript syntax check and omni-completion
+  Plugin 'Shougo/vimproc'             " Async engine for vim
+  Plugin 'Shougo/unite.vim'           " Fancy UI stuff
 
   " Colors
   Plugin 'altercation/Vim-colors-solarized'
