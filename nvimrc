@@ -26,9 +26,6 @@ call vundle#begin()
   Plugin 'tpope/vim-fugitive'         " Git binds for vim
   Plugin 'elixir-lang/vim-elixir'     " Elixir syntax highlighting and indentation
   Plugin 'leafgarland/typescript-vim' " Typescript syntax highlighting and indentation
-  Plugin 'Quramy/tsuquyomi'           " Typescript syntax check and omni-completion
-  Plugin 'Shougo/vimproc'             " Async engine for vim
-  Plugin 'Shougo/unite.vim'           " Fancy UI stuff
 
   " Colors
   Plugin 'altercation/Vim-colors-solarized'
