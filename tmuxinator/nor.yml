@@ -21,6 +21,6 @@ root: ~/nourish-organisations
 windows:
   - editor: vim
   - shell: git fetch
-  - console: bundle exec spring rails c
-  - server: bundle exec spring rails s -b 0.0.0.0
+  - console: be rails c
+  - server: be rails s -b 0.0.0.0
   - spec: ls

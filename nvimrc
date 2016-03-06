@@ -26,9 +26,11 @@ call vundle#begin()
   Plugin 'tpope/vim-fugitive'         " Git binds for vim
   Plugin 'elixir-lang/vim-elixir'     " Elixir syntax highlighting and indentation
   Plugin 'leafgarland/typescript-vim' " Typescript syntax highlighting and indentation
-  Plugin 'Quramy/tsuquyomi'           " Typescript syntax check and omni-completion
-  Plugin 'Shougo/vimproc'             " Async engine for vim
-  Plugin 'Shougo/unite.vim'           " Fancy UI stuff
+  Plugin 'henrik/vim-qargs'           " Support for :Qdo
+  Plugin 'pangloss/vim-javascript'    " Javascript support
+  Plugin 'othree/yajs.vim'            " Javascript syntax
+  Plugin 'mxw/vim-jsx'                " React support
+  Plugin 'nathanaelkane/vim-indent-guides'
 
   " Colors
   Plugin 'altercation/Vim-colors-solarized'
@@ -136,6 +138,9 @@ nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
+
+" Hit Ctrl-R during visual mode for search and replace
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 " }}}
 " Backups {{{
 " no backup files
@@ -209,6 +214,7 @@ augroup configgroup
   autocmd BufEnter *.sh setlocal shiftwidth=2
   autocmd BufEnter *.sh setlocal softtabstop=2
   autocmd BufRead,BufNewFile *.md set filetype=markdown
+  autocmd BufRead,BufNewFile *.js* set filetype=javascript
   autocmd FileType markdown setlocal spell
   autocmd BufRead,BufNewFile *.md setlocal textwidth=80
   autocmd FileType go setlocal nolist
