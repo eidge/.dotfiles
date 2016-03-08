@@ -161,6 +161,17 @@ let g:syntastic_always_populate_loc_list = 0
 
 let g:syntastic_html_tidy_ignore_errors = [" proprietary attribute \"ng-"]
 let g:syntastic_javascript_checkers = ['jshint']
+
+
+let g:syntastic_error_symbol = '❌'
+let g:syntastic_style_error_symbol = '⁉️'
+let g:syntastic_warning_symbol = '⚠️'
+let g:syntastic_style_warning_symbol = '💩'
+
+highlight link SyntasticErrorSign SignColumn
+highlight link SyntasticWarningSign SignColumn
+highlight link SyntasticStyleErrorSign SignColumn
+highlight link SyntasticStyleWarningSign SignColumn
 " }}}
 " Testing {{{
 let g:rspec_command = 'call Send_to_Tmux("tmux set -g status-left-fg white && tmux set -g status-left \"  Running {spec}\" && bundle exec rspec {spec} --fail-fast && (tmux set -g status-left \"  Tests passed\" && tmux set -g status-left-fg green) || (tmux set -g status-left \"  Tests failed\" && tmux set -g status-left-fg red) \n")'
