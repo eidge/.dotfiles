@@ -20,7 +20,7 @@ call vundle#begin()
   Plugin 'tpope/vim-rails'            " Rails commands like migrations and partial extract
   Plugin 'thoughtbot/vim-rspec'       " Rspec commands inside vim
   Plugin 'jgdavey/tslime.vim'         " Send commands to tmux
-  Plugin 'scrooloose/syntastic'       " Send commands to tmux
+  Plugin 'benekastah/neomake'         " Run linters async
   Plugin 'ervandew/supertab'          " Tab for auto-completion
   Plugin 'rstacruz/sparkup.git'       " HTML fancy css like completion
   Plugin 'tpope/vim-fugitive'         " Git binds for vim
@@ -153,25 +153,24 @@ let Tlist_Show_One_File=1
 " }}}
 " Syntastic {{{
 
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_signs =1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_always_populate_loc_list = 0
+let g:neomake_list_height = 3
+let g:neomake_open_list = 0
+let g:neomake_serialize = 0
+let g:neomake_serialize_abort_on_error = 1
+let g:neomake_verbose = 0
+let g:neomake_javascript_enabled_checkers = ['jshint', 'jscs']
+let g:neomake_ruby_enabled_checkers = ['rubocop', 'mri']
 
-let g:syntastic_html_tidy_ignore_errors = [" proprietary attribute \"ng-"]
-let g:syntastic_javascript_checkers = ['jshint']
+let g:neomake_error_sign = { 
+      \ 'text': '💩'
+      \ }
 
+let g:neomake_warning_sign = { 
+      \ 'text': '💩'
+      \ }
 
-let g:syntastic_error_symbol = '❌'
-let g:syntastic_style_error_symbol = '⁉️'
-let g:syntastic_warning_symbol = '⚠️'
-let g:syntastic_style_warning_symbol = '💩'
+" '❌' '⁉️' '⚠️' '💩'
 
-highlight link SyntasticErrorSign SignColumn
-highlight link SyntasticWarningSign SignColumn
-highlight link SyntasticStyleErrorSign SignColumn
-highlight link SyntasticStyleWarningSign SignColumn
 " }}}
 " Testing {{{
 let g:rspec_command = 'call Send_to_Tmux("tmux set -g status-left-fg white && tmux set -g status-left \"  Running {spec}\" && bundle exec rspec {spec} --fail-fast && (tmux set -g status-left \"  Tests passed\" && tmux set -g status-left-fg green) || (tmux set -g status-left \"  Tests failed\" && tmux set -g status-left-fg red) \n")'
@@ -229,5 +228,8 @@ augroup configgroup
   autocmd FileType markdown setlocal spell
   autocmd BufRead,BufNewFile *.md setlocal textwidth=80
   autocmd FileType go setlocal nolist
+
+  autocmd! BufWritePost * Neomake
+  autocmd! BufReadPost * Neomake
 augroup END
 "}}}
