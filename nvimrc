@@ -18,8 +18,8 @@ call vundle#begin()
   Plugin 'tpope/vim-surround'         " Surround movements
   Plugin 'tpope/vim-repeat'           " Surround movements
   Plugin 'tpope/vim-rails'            " Rails commands like migrations and partial extract
-  Plugin 'thoughtbot/vim-rspec'       " Rspec commands inside vim
   Plugin 'jgdavey/tslime.vim'         " Send commands to tmux
+  Plugin 'janko-m/vim-test'           " Test Runner
   Plugin 'benekastah/neomake'         " Run linters async
   Plugin 'ervandew/supertab'          " Tab for auto-completion
   Plugin 'rstacruz/sparkup.git'       " HTML fancy css like completion
@@ -173,20 +173,24 @@ let g:neomake_warning_sign = {
 
 " }}}
 " Testing {{{
-let g:rspec_command = 'call Send_to_Tmux("tmux set -g status-left-fg white && tmux set -g status-left \"  Running {spec}\" && bundle exec rspec {spec} --fail-fast && (tmux set -g status-left \"  Tests passed\" && tmux set -g status-left-fg green) || (tmux set -g status-left \"  Tests failed\" && tmux set -g status-left-fg red) \n")'
-au FileType ruby map <Leader>t :call RunCurrentSpecFile()<CR>
-au FileType ruby map <Leader>s :call RunNearestSpec()<CR>
-au FileType ruby map <Leader>l :call RunLastSpec()<CR>
-au FileType ruby map <Leader>a :call RunAllSpecs()<CR>
 
-au FileType elixir map <leader>t :ExTestRunFile<CR>
-au FileType elixir map <leader>s :ExTestRunMethod<CR>
-au FileType elixir map <leader>l :ExTestRunLast<CR>
+function! TmuxWithStatusStrategy(cmd)
+  let running_cmd = 'tmux set -g status-left-fg white && tmux set -g status-left "  Running ' . a:cmd . '"'
+  let success_cmd = 'tmux set -g status-left "  Tests passed" && tmux set -g status-left-fg green'
+  let failure_cmd = 'tmux set -g status-left "  Tests failed" && tmux set -g status-left-fg red'
 
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>c <Plug>(go-coverage)
+  call Send_to_Tmux('clear; ' . l:running_cmd . " && (" . a:cmd . " && " . l:success_cmd .") || (" . l:failure_cmd .")\n")
+endfunction
+
+let g:test#custom_strategies = {'TmuxWithStatusStrategy': function('TmuxWithStatusStrategy')}
+let g:test#strategy = 'TmuxWithStatusStrategy'
+
+nmap <silent> <leader>s :TestNearest<CR>
+nmap <silent> <leader>t :TestFile<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>gt :TestVisit<CR>
+
 " }}}
 " Leader Shortcuts {{{
 let mapleader="," " leader is comma
