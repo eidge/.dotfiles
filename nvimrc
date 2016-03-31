@@ -185,12 +185,6 @@ endfunction
 let g:test#custom_strategies = {'TmuxWithStatusStrategy': function('TmuxWithStatusStrategy')}
 let g:test#strategy = 'TmuxWithStatusStrategy'
 
-nmap <silent> <leader>s :TestNearest<CR>
-nmap <silent> <leader>t :TestFile<CR>
-nmap <silent> <leader>l :TestLast<CR>
-nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>gt :TestVisit<CR>
-
 " }}}
 " Leader Shortcuts {{{
 let mapleader="," " leader is comma
@@ -202,6 +196,13 @@ map <Leader>ct :!ctags -R --exclude='vendor/**/*' .<CR>
 map <Leader><Tab> :TlistOpen<CR>
 map <Leader>gd tjump<CR>
 map <Leader>gd "zyiw:exe "tj ".@z.""<CR>
+
+map <leader>s :TestNearest<CR>
+map <leader>t :TestFile<CR>
+map <leader>l :TestLast<CR>
+map <leader>a :TestSuite<CR>
+map <leader>gt :TestVisit<CR>
+
 
 " Hide search matches
 map <Leader> :noh<CR>
