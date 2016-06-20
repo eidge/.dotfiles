@@ -161,12 +161,12 @@ let g:neomake_verbose = 0
 let g:neomake_javascript_enabled_checkers = ['jshint', 'jscs']
 let g:neomake_ruby_enabled_checkers = ['rubocop', 'mri']
 
-let g:neomake_error_sign = { 
-      \ 'text': '💩'
+let g:neomake_error_sign = {
+      \ 'text': '⁉️'
       \ }
 
-let g:neomake_warning_sign = { 
-      \ 'text': '💩'
+let g:neomake_warning_sign = {
+      \ 'text': '⚠️'
       \ }
 
 " '❌' '⁉️' '⚠️' '💩'
