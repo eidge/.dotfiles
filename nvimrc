@@ -25,6 +25,7 @@ call vundle#begin()
   Plugin 'rstacruz/sparkup.git'       " HTML fancy css like completion
   Plugin 'tpope/vim-fugitive'         " Git binds for vim
   Plugin 'elixir-lang/vim-elixir'     " Elixir syntax highlighting and indentation
+  Plugin 'slashmili/alchemist.vim'    " Elixir autocomplete
   Plugin 'leafgarland/typescript-vim' " Typescript syntax highlighting and indentation
   Plugin 'henrik/vim-qargs'           " Support for :Qdo
   Plugin 'pangloss/vim-javascript'    " Javascript support
@@ -151,7 +152,12 @@ set noswapfile
 " Ctags {{{
 let Tlist_Show_One_File=1
 " }}}
-" Syntastic {{{
+" Completion {{{
+
+let g:SuperTabDefaultCompletionType = "context"
+
+" }}}
+" Syntax Checker {{{
 
 let g:neomake_list_height = 3
 let g:neomake_open_list = 0
@@ -161,12 +167,12 @@ let g:neomake_verbose = 0
 let g:neomake_javascript_enabled_checkers = ['jshint', 'jscs']
 let g:neomake_ruby_enabled_checkers = ['rubocop', 'mri']
 
-let g:neomake_error_sign = { 
-      \ 'text': '💩'
+let g:neomake_error_sign = {
+      \ 'text': '⁉️'
       \ }
 
-let g:neomake_warning_sign = { 
-      \ 'text': '💩'
+let g:neomake_warning_sign = {
+      \ 'text': '⚠️'
       \ }
 
 " '❌' '⁉️' '⚠️' '💩'
@@ -190,6 +196,8 @@ let g:test#strategy = 'TmuxWithStatusStrategy'
 let mapleader="," " leader is comma
 
 map <Leader>n :NERDTreeToggle<CR>
+
+map <Leader>c g:deoplete#mappings#close_popup()<CR>
 
 "ctags
 map <Leader>ct :!ctags -R --exclude='vendor/**/*' .<CR>
