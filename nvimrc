@@ -10,41 +10,47 @@ call vundle#begin()
   Plugin 'VundleVim/Vundle.vim' " required for vundle to work
   Plugin 'kien/ctrlp.vim'
   Plugin 'scrooloose/nerdtree'
-  Plugin 'jiangmiao/auto-pairs'       " match brackets
-  Plugin 'mattn/webapi-vim'           " needed for mattn/gist-vim
-  Plugin 'mattn/gist-vim'             " create gists from vim
-  Plugin 'rking/ag.vim'               " use Ag from vim
-  Plugin 'vim-scripts/Rename'         " Rename files from vim
-  Plugin 'tpope/vim-surround'         " Surround movements
-  Plugin 'tpope/vim-repeat'           " Surround movements
-  Plugin 'tpope/vim-rails'            " Rails commands like migrations and partial extract
-  Plugin 'jgdavey/tslime.vim'         " Send commands to tmux
-  Plugin 'janko-m/vim-test'           " Test Runner
-  Plugin 'benekastah/neomake'         " Run linters async
-  Plugin 'ervandew/supertab'          " Tab for auto-completion
-  Plugin 'rstacruz/sparkup.git'       " HTML fancy css like completion
-  Plugin 'tpope/vim-fugitive'         " Git binds for vim
-  Plugin 'elixir-lang/vim-elixir'     " Elixir syntax highlighting and indentation
-  Plugin 'slashmili/alchemist.vim'    " Elixir autocomplete
-  Plugin 'leafgarland/typescript-vim' " Typescript syntax highlighting and indentation
-  Plugin 'henrik/vim-qargs'           " Support for :Qdo
-  Plugin 'pangloss/vim-javascript'    " Javascript support
-  Plugin 'othree/yajs.vim'            " Javascript syntax
-  Plugin 'mxw/vim-jsx'                " React support
+  Plugin 'jiangmiao/auto-pairs'         " match brackets
+  Plugin 'mattn/webapi-vim'             " needed for mattn/gist-vim
+  Plugin 'mattn/gist-vim'               " create gists from vim
+  Plugin 'rking/ag.vim'                 " use Ag from vim
+  Plugin 'vim-scripts/Rename'           " Rename files from vim
+  Plugin 'tpope/vim-surround'           " Surround movements
+  Plugin 'tpope/vim-repeat'             " Surround movements
+  Plugin 'tpope/vim-rails'              " Rails commands like migrations and partial extract
+  Plugin 'jgdavey/tslime.vim'           " Send commands to tmux
+  Plugin 'janko-m/vim-test'             " Test Runner
+  Plugin 'benekastah/neomake'           " Run linters async
+  Plugin 'ervandew/supertab'            " Tab for auto-completion
+  Plugin 'rstacruz/sparkup.git'         " HTML fancy css like completion
+  Plugin 'tpope/vim-fugitive'           " Git binds for vim
+  Plugin 'elixir-lang/vim-elixir'       " Elixir syntax highlighting and indentation
+  Plugin 'slashmili/alchemist.vim'      " Elixir autocomplete
+  Plugin 'leafgarland/typescript-vim'   " Typescript syntax highlighting and indentation
+  Plugin 'henrik/vim-qargs'             " Support for :Qdo
+  Plugin 'pangloss/vim-javascript'      " Javascript support
+  Plugin 'othree/yajs.vim'              " Javascript syntax
+  Plugin 'mxw/vim-jsx'                  " React support
+  Plugin 'MarcWeber/vim-addon-mw-utils' " Dependencies for snipmat
+  Plugin 'tomtom/tlib_vim'              " Dependencies for snipmat
+  Plugin 'garbas/vim-snipmate'          " Snippets engine
+  Plugin 'honza/vim-snippets'           " Snippets
+  Plugin 'sheerun/vim-polyglot'         " Support for all sorts of languages
+  Plugin 'ludovicchabant/vim-gutentags' " Update ctags automatically
   Plugin 'nathanaelkane/vim-indent-guides'
 
   " Colors
   Plugin 'altercation/Vim-colors-solarized'
-  Plugin 'rickharris/vim-railscasts'
+  Plugin 'jpo/vim-railscasts-theme'
 call vundle#end()            " required
 
 filetype plugin indent on    " required for vundle
 " "}}}
 " Colors {{{
 syntax enable
-call togglebg#map("<leader>bg")
 set background=dark
 colorscheme railscasts
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " }}}
 " Misc {{{
 set lazyredraw    " Don't redraw if there's no need to
@@ -126,8 +132,14 @@ nnoremap j gj
 nnoremap k gk
 " }}}
 " Movement {{{
-" Move between panes using ctrl-hjkl
+
+" Use jk to quit insert mode
 inoremap jk <esc>
+
+" Same as above but when using Nvim's terminal
+tnoremap jk <C-\><C-n>
+
+" Move between panes using ctrl-hjkl
 
 map <C-h> <C-w>h
 map <C-j> <C-w>j
@@ -151,10 +163,12 @@ set noswapfile
 " "}}}
 " Ctags {{{
 let Tlist_Show_One_File=1
+let g:gutentags_cache_dir = '~/.tags_cache'
 " }}}
 " Completion {{{
 
 let g:SuperTabDefaultCompletionType = "context"
+let g:jsx_ext_required = 0
 
 " }}}
 " Syntax Checker {{{
@@ -164,7 +178,7 @@ let g:neomake_open_list = 0
 let g:neomake_serialize = 0
 let g:neomake_serialize_abort_on_error = 1
 let g:neomake_verbose = 0
-let g:neomake_javascript_enabled_checkers = ['jshint', 'jscs']
+let g:neomake_javascript_enabled_checkers = ['eslint']
 let g:neomake_ruby_enabled_checkers = ['rubocop', 'mri']
 
 let g:neomake_error_sign = {
@@ -185,11 +199,14 @@ function! TmuxWithStatusStrategy(cmd)
   let success_cmd = 'tmux set -g status-left "  Tests passed" && tmux set -g status-left-fg green'
   let failure_cmd = 'tmux set -g status-left "  Tests failed" && tmux set -g status-left-fg red'
 
-  call Send_to_Tmux('clear; ' . l:running_cmd . " && (" . a:cmd . " && " . l:success_cmd .") || (" . l:failure_cmd .")\n")
+  call Send_to_Tmux('clear; ' . l:running_cmd . " && ( SKIP_FG='true' " . a:cmd . " && " . l:success_cmd .") || (" . l:failure_cmd .")\n")
 endfunction
 
 let g:test#custom_strategies = {'TmuxWithStatusStrategy': function('TmuxWithStatusStrategy')}
 let g:test#strategy = 'TmuxWithStatusStrategy'
+
+let test#javascript#mocha#file_pattern = '\.test\.js' " *.test.js are mocha test files
+let test#javascript#mocha#executable = 'mocha --opts .mocha.opts'
 
 " }}}
 " Leader Shortcuts {{{
@@ -241,6 +258,7 @@ augroup configgroup
   autocmd FileType markdown setlocal spell
   autocmd BufRead,BufNewFile *.md setlocal textwidth=80
   autocmd FileType go setlocal nolist
+  autocmd FileType javascript.jsx runtime! ftplugin/html/sparkup.vim " Enable sparkup for jsx files
 
   autocmd! BufWritePost * Neomake
   autocmd! BufReadPost * Neomake

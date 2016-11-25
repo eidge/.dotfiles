@@ -1,8 +1,11 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 export TERM='xterm-256color'
-export EDITOR='vim'
+export EDITOR='nvim'
 export GOPATH=$HOME/go_code
+export PATH="$GOPATH/bin:./node_modules/.bin/:./bin:$HOME/.rbenv/bin:$HOME/npm/bin:$HOME/.rbenv/shims:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$PATH"
+export LC_ALL="en_GB.UTF-8"
+export BROWSER="echo"
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -10,9 +13,18 @@ export GOPATH=$HOME/go_code
 # time that oh-my-zsh is loaded.
 ZSH_THEME="avit"
 
-alias tmux='TERM=xterm-256color tmux'
+alias vim='nvim'
+alias tmux='env TERM=xterm-256color tmux'
+alias mux="tmuxinator"
 alias be='bundle exec'
 alias dc='docker-compose'
+alias rake="noglob rake"
+
+eval "$(rbenv init -)"
+export NVM_DIR="/home/ubuntu/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+export PATH="$GOPATH/bin:./node_modules/.bin/:./bin:$HOME/.rbenv/bin:$HOME/npm/bin:$HOME/.rbenv/shims:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$PATH"
 
 transfer() {
   if [ $# -eq 0  ]; then
@@ -79,8 +91,6 @@ plugins=(git ruby rails capistrano coffee github rake-fast rake ssh-agent tmux)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
-export PATH="$GOPATH/bin:./node_modules/.bin/:./bin:$HOME/npm/bin:/home/vagrant/.rbenv/shims:/home/vagrant/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -126,5 +136,3 @@ zstyle -e ':completion:*:(ssh|scp):*' hosts 'reply=(
       )'
 eval "$(scmpuff init -s)"
 
-export NVM_DIR="/home/vagrant/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
