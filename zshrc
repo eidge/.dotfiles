@@ -26,6 +26,10 @@ export NVM_DIR="/home/ubuntu/.nvm"
 
 export PATH="$GOPATH/bin:./node_modules/.bin/:./bin:$HOME/.rbenv/bin:$HOME/npm/bin:$HOME/.rbenv/shims:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$PATH"
 
+pids_of() {
+  ps aux | grep $1 | grep -v grep | awk '{print $2}'
+}
+
 transfer() {
   if [ $# -eq 0  ]; then
     echo "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md";
@@ -86,7 +90,7 @@ alias transfer=transfer
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git ruby rails capistrano coffee github rake-fast rake ssh-agent tmux)
+plugins=(git ruby rails capistrano coffee github rake-fast rake ssh-agent tmux asdf)
 
 source $ZSH/oh-my-zsh.sh
 

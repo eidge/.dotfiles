@@ -31,12 +31,12 @@ call vundle#begin()
   Plugin 'pangloss/vim-javascript'      " Javascript support
   Plugin 'othree/yajs.vim'              " Javascript syntax
   Plugin 'mxw/vim-jsx'                  " React support
-  Plugin 'MarcWeber/vim-addon-mw-utils' " Dependencies for snipmat
-  Plugin 'tomtom/tlib_vim'              " Dependencies for snipmat
+  Plugin 'MarcWeber/vim-addon-mw-utils' " Dependencies for snipmate
+  Plugin 'tomtom/tlib_vim'              " Dependencies for snipmate
   Plugin 'garbas/vim-snipmate'          " Snippets engine
   Plugin 'honza/vim-snippets'           " Snippets
   Plugin 'sheerun/vim-polyglot'         " Support for all sorts of languages
-  Plugin 'ludovicchabant/vim-gutentags' " Update ctags automatically
+  " Plugin 'ludovicchabant/vim-gutentags' " Update ctags automatically
   Plugin 'nathanaelkane/vim-indent-guides'
 
   " Colors
@@ -167,6 +167,7 @@ let g:gutentags_cache_dir = '~/.tags_cache'
 " }}}
 " Completion {{{
 
+set inccommand=nosplit
 let g:SuperTabDefaultCompletionType = "context"
 let g:jsx_ext_required = 0
 
@@ -208,6 +209,8 @@ let g:test#strategy = 'TmuxWithStatusStrategy'
 let test#javascript#mocha#file_pattern = '\.test\.js' " *.test.js are mocha test files
 let test#javascript#mocha#executable = 'mocha --opts .mocha.opts'
 
+let test#filename_modifier = ':p' " Use absolute path for ExUnit tests
+
 " }}}
 " Leader Shortcuts {{{
 let mapleader="," " leader is comma
@@ -231,6 +234,7 @@ map <leader>gt :TestVisit<CR>
 
 " Hide search matches
 map <Leader> :noh<CR>
+map <leader>vr :set cursorcolumn!<Bar>set cursorline!<CR>
 
 nnoremap <leader>v :source $MYVIMRC<CR>
 " }}}
