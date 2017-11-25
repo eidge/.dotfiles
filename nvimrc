@@ -14,7 +14,7 @@ call vundle#begin()
   Plugin 'mattn/webapi-vim'             " needed for mattn/gist-vim
   Plugin 'mattn/gist-vim'               " create gists from vim
   Plugin 'rking/ag.vim'                 " use Ag from vim
-  Plugin 'vim-scripts/Rename'           " Rename files from vim
+  Plugin 'danro/rename.vim'             " Rename files from vim
   Plugin 'tpope/vim-surround'           " Surround movements
   Plugin 'tpope/vim-repeat'             " Surround movements
   Plugin 'tpope/vim-rails'              " Rails commands like migrations and partial extract
@@ -27,7 +27,6 @@ call vundle#begin()
   Plugin 'elixir-lang/vim-elixir'       " Elixir syntax highlighting and indentation
   Plugin 'slashmili/alchemist.vim'      " Elixir autocomplete
   Plugin 'leafgarland/typescript-vim'   " Typescript syntax highlighting and indentation
-  Plugin 'henrik/vim-qargs'             " Support for :Qdo
   Plugin 'pangloss/vim-javascript'      " Javascript support
   Plugin 'othree/yajs.vim'              " Javascript syntax
   Plugin 'mxw/vim-jsx'                  " React support
@@ -164,6 +163,7 @@ set noswapfile
 " Ctags {{{
 let Tlist_Show_One_File=1
 let g:gutentags_cache_dir = '~/.tags_cache'
+let g:gutentags_ctags_exclude = 'node_modules'
 " }}}
 " Completion {{{
 
@@ -187,6 +187,14 @@ let g:neomake_error_sign = {
       \ }
 
 let g:neomake_warning_sign = {
+      \ 'text': '⚠️'
+      \ }
+
+let g:neomake_message_sign = {
+      \ 'text': '⚠️'
+      \ }
+
+let g:neomake_info_sign = {
       \ 'text': '⚠️'
       \ }
 
@@ -220,7 +228,7 @@ map <Leader>n :NERDTreeToggle<CR>
 map <Leader>c g:deoplete#mappings#close_popup()<CR>
 
 "ctags
-map <Leader>ct :!ctags -R --exclude='vendor/**/*' .<CR>
+map <Leader>ct :!ctags -R --exclude='vendor/**/*' --exclude='node_modules/**/*' .<CR>
 map <Leader><Tab> :TlistOpen<CR>
 map <Leader>gd tjump<CR>
 map <Leader>gd "zyiw:exe "tj ".@z.""<CR>
