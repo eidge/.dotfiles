@@ -3,7 +3,7 @@ export ZSH=$HOME/.oh-my-zsh
 export TERM='xterm-256color'
 export EDITOR='nvim'
 export GOPATH=$HOME/go_code
-export PATH="$GOPATH/bin:./node_modules/.bin/:./bin:$HOME/.rbenv/bin:$HOME/npm/bin:$HOME/.rbenv/shims:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$PATH"
+export PATH="$GOPATH/bin:./node_modules/.bin/:./bin:$HOME/.rbenv/bin:$HOME/npm/bin:$HOME/.rbenv/shims:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/dasht/bin:$PATH"
 export LC_ALL="en_GB.UTF-8"
 export BROWSER="echo"
 
@@ -24,7 +24,6 @@ eval "$(rbenv init -)"
 export NVM_DIR="/home/ubuntu/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-export PATH="$GOPATH/bin:./node_modules/.bin/:./bin:$HOME/.rbenv/bin:$HOME/npm/bin:$HOME/.rbenv/shims:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$PATH"
 
 pids_of() {
   ps aux | grep $1 | grep -v grep | awk '{print $2}'
@@ -93,6 +92,7 @@ alias transfer=transfer
 plugins=(git ruby rails capistrano coffee github rake-fast rake ssh-agent tmux asdf)
 
 source $ZSH/oh-my-zsh.sh
+source ~/dasht/etc/zsh/completions.zsh
 
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
