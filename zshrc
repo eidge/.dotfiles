@@ -7,6 +7,11 @@ export PATH="$GOPATH/bin:./node_modules/.bin/:./bin:$HOME/.rbenv/bin:$HOME/npm/b
 export LC_ALL="en_GB.UTF-8"
 export BROWSER="echo"
 
+# Intercom
+export INTERCOM_USER=hugo.ribeira
+export PATH=$HOME/.pilot/bin:$PATH
+eval $(pilot env)
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -19,10 +24,17 @@ alias mux="tmuxinator"
 alias be='bundle exec'
 alias dc='docker-compose'
 alias rake="noglob rake"
+alias did="vim +'normal Go' +'r!date' ~/did.txt"
 
 eval "$(rbenv init -)"
 export NVM_DIR="/home/ubuntu/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# For mac, I need to split this for both machines
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+export PATH="$PATH:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin"
 
 
 pids_of() {
@@ -92,7 +104,6 @@ alias transfer=transfer
 plugins=(git ruby rails capistrano coffee github rake-fast rake ssh-agent tmux asdf)
 
 source $ZSH/oh-my-zsh.sh
-source ~/dasht/etc/zsh/completions.zsh
 
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -140,3 +151,4 @@ zstyle -e ':completion:*:(ssh|scp):*' hosts 'reply=(
       )'
 eval "$(scmpuff init -s)"
 
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

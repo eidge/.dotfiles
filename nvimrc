@@ -4,39 +4,44 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required for vundle
 
-set rtp+=~/.nvim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
-  Plugin 'VundleVim/Vundle.vim' " required for vundle to work
-  Plugin 'kien/ctrlp.vim'
+  Plugin 'VundleVim/Vundle.vim'                                   " required for vundle to work
+  Plugin 'junegunn/fzf'                                           " like ctrlp but faster
   Plugin 'scrooloose/nerdtree'
-  Plugin 'jiangmiao/auto-pairs'         " match brackets
-  Plugin 'mattn/webapi-vim'             " needed for mattn/gist-vim
-  Plugin 'mattn/gist-vim'               " create gists from vim
-  Plugin 'rking/ag.vim'                 " use Ag from vim
-  Plugin 'danro/rename.vim'             " Rename files from vim
-  Plugin 'tpope/vim-surround'           " Surround movements
-  Plugin 'tpope/vim-repeat'             " Surround movements
-  Plugin 'tpope/vim-rails'              " Rails commands like migrations and partial extract
-  Plugin 'jgdavey/tslime.vim'           " Send commands to tmux
-  Plugin 'janko-m/vim-test'             " Test Runner
-  Plugin 'benekastah/neomake'           " Run linters async
-  Plugin 'ervandew/supertab'            " Tab for auto-completion
-  Plugin 'rstacruz/sparkup.git'         " HTML fancy css like completion
-  Plugin 'tpope/vim-fugitive'           " Git binds for vim
-  Plugin 'elixir-lang/vim-elixir'       " Elixir syntax highlighting and indentation
-  Plugin 'slashmili/alchemist.vim'      " Elixir autocomplete
-  Plugin 'leafgarland/typescript-vim'   " Typescript syntax highlighting and indentation
-  Plugin 'pangloss/vim-javascript'      " Javascript support
-  Plugin 'othree/yajs.vim'              " Javascript syntax
-  Plugin 'mxw/vim-jsx'                  " React support
-  Plugin 'MarcWeber/vim-addon-mw-utils' " Dependencies for snipmate
-  Plugin 'tomtom/tlib_vim'              " Dependencies for snipmate
-  Plugin 'garbas/vim-snipmate'          " Snippets engine
-  Plugin 'honza/vim-snippets'           " Snippets
-  Plugin 'sheerun/vim-polyglot'         " Support for all sorts of languages
-  " Plugin 'ludovicchabant/vim-gutentags' " Update ctags automatically
+  Plugin 'jiangmiao/auto-pairs'                                   " match brackets
+  Plugin 'mattn/webapi-vim'                                       " needed for mattn/gist-vim
+  Plugin 'mattn/gist-vim'                                         " create gists from vim
+  Plugin 'rking/ag.vim'                                           " use Ag from vim
+  Plugin 'danro/rename.vim'                                       " Rename files from vim
+  Plugin 'tpope/vim-surround'                                     " Surround movements
+  Plugin 'tpope/vim-repeat'                                       " Surround movements
+  Plugin 'tpope/vim-rails'                                        " Rails commands like migrations and partial extract
+  Plugin 'jgdavey/tslime.vim'                                     " Send commands to tmux
+  Plugin 'janko-m/vim-test'                                       " Test Runner
+  Plugin 'benekastah/neomake'                                     " Run linters async
+  Plugin 'ervandew/supertab'                                      " Tab for auto-completion
+  Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Proper auto complete (requires python3 pip3 `gem install neovim` && `pip3 install neovim`)
+  Plugin 'rstacruz/sparkup.git'                                   " HTML fancy css like completion
+  Plugin 'tpope/vim-fugitive'                                     " Git binds for vim
+  Plugin 'tpope/vim-rhubarb'                                      " Hub binds for vim
+  Plugin 'elixir-lang/vim-elixir'                                 " Elixir syntax highlighting and indentation
+  Plugin 'slashmili/alchemist.vim'                                " Elixir autocomplete
+  Plugin 'leafgarland/typescript-vim'                             " Typescript syntax highlighting and indentation
+  Plugin 'pangloss/vim-javascript'                                " Javascript support
+  Plugin 'othree/yajs.vim'                                        " Javascript syntax
+  Plugin 'mxw/vim-jsx'                                            " React support
+  Plugin 'MarcWeber/vim-addon-mw-utils'                           " Dependencies for snipmate
+  Plugin 'tomtom/tlib_vim'                                        " Dependencies for snipmate
+  Plugin 'garbas/vim-snipmate'                                    " Snippets engine
+  Plugin 'honza/vim-snippets'                                     " Snippets
+  Plugin 'sheerun/vim-polyglot'                                   " Support for all sorts of languages
+  Plugin 'machakann/vim-highlightedyank'                          " Highlight yanked text
+  Plugin 'joukevandermaas/vim-ember-hbs'                          " HBS support
   Plugin 'nathanaelkane/vim-indent-guides'
+  Plugin 'hashivim/vim-terraform'
+  Plugin 'isRuslan/vim-es6'
 
   " Colors
   Plugin 'altercation/Vim-colors-solarized'
@@ -45,6 +50,10 @@ call vundle#end()            " required
 
 filetype plugin indent on    " required for vundle
 " "}}}
+" Github {{{
+let g:gist_post_private = 1
+" }}}
+
 " Colors {{{
 syntax enable
 set background=dark
@@ -52,7 +61,6 @@ colorscheme railscasts
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " }}}
 " Misc {{{
-set lazyredraw    " Don't redraw if there's no need to
 set backspace=indent,eol,start
 set modelines=1   " Use comment config line
 set autowrite     " Automatically :write before running commands
@@ -63,12 +71,6 @@ set pastetoggle=<F2>  " Set paste mode using F2 for copying stuff
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
 endif
 
 " Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
@@ -106,6 +108,7 @@ set smartcase     " ignore case if search pattern is all lowercase,
 set ignorecase    " ignore case when searching
 set incsearch     " search as characters are entered
 set hlsearch      " highlight all matches
+set inccommand=nosplit " live search and replace
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
@@ -118,6 +121,9 @@ vnoremap <silent> # :<C-U>
   \gvy?<C-R><C-R>=substitute(
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
+" }}}
+" CTRLP {{{
+noremap <C-P> :FZF<CR>
 " }}}
 " Folding {{{
 "=== folding ===
@@ -164,12 +170,40 @@ set noswapfile
 let Tlist_Show_One_File=1
 let g:gutentags_cache_dir = '~/.tags_cache'
 let g:gutentags_ctags_exclude = 'node_modules'
+
+" Expose `Tags` command to open ctags in FZF
+function! s:tags_sink(line)
+  let parts = split(a:line, '\t\zs')
+  let excmd = matchstr(parts[2:], '^.*\ze;"\t')
+  execute 'silent e' parts[1][:-2]
+  let [magic, &magic] = [&magic, 0]
+  execute excmd
+  let &magic = magic
+endfunction
+
+function! s:tags()
+  if empty(tagfiles())
+    echohl WarningMsg
+    echom 'Preparing tags'
+    echohl None
+    call system('ctags -R')
+  endif
+
+  call fzf#run({
+  \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
+  \            '| grep -v -a ^!',
+  \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
+  \ 'down':    '40%',
+  \ 'sink':    function('s:tags_sink')})
+endfunction
+
+command! Tags call s:tags()
 " }}}
 " Completion {{{
 
-set inccommand=nosplit
 let g:SuperTabDefaultCompletionType = "context"
 let g:jsx_ext_required = 0
+let g:deoplete#enable_at_startup = 1
 
 " }}}
 " Syntax Checker {{{
@@ -179,26 +213,27 @@ let g:neomake_open_list = 0
 let g:neomake_serialize = 0
 let g:neomake_serialize_abort_on_error = 1
 let g:neomake_verbose = 0
-let g:neomake_javascript_enabled_checkers = ['eslint']
+let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
+let g:neomake_javascript_eslint_exe = system('PATH=$(npm bin):$PATH && which eslint | tr -d "\n"')
 let g:neomake_ruby_enabled_checkers = ['rubocop', 'mri']
 
 let g:neomake_error_sign = {
-      \ 'text': '⁉️'
+      \ 'text': 'x'
       \ }
 
 let g:neomake_warning_sign = {
-      \ 'text': '⚠️'
+      \ 'text': 'x'
       \ }
 
 let g:neomake_message_sign = {
-      \ 'text': '⚠️'
+      \ 'text': 'x'
       \ }
 
 let g:neomake_info_sign = {
-      \ 'text': '⚠️'
+      \ 'text': 'x'
       \ }
 
-" '❌' '⁉️' '⚠️' '💩'
+" '❌' '⁉️' '⚠️' '💩
 
 " }}}
 " Testing {{{
@@ -216,6 +251,9 @@ let g:test#strategy = 'TmuxWithStatusStrategy'
 
 let test#javascript#mocha#file_pattern = '\.test\.js' " *.test.js are mocha test files
 let test#javascript#mocha#executable = 'mocha --opts .mocha.opts'
+
+let test#javascript#jest#file_pattern = '\.__tests__\/.*\.js' " *.test.js are mocha test files
+let test#javascript#jest#executable = 'jest'
 
 let test#filename_modifier = ':p' " Use absolute path for ExUnit tests
 
