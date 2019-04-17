@@ -5,7 +5,7 @@ export EDITOR='nvim'
 export GOPATH=$HOME/go_code
 export PATH="$GOPATH/bin:./node_modules/.bin/:./bin:$HOME/.rbenv/bin:$HOME/npm/bin:$HOME/.rbenv/shims:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/dasht/bin:$PATH"
 export LC_ALL="en_GB.UTF-8"
-export BROWSER="echo"
+# export BROWSER="echo" # This is only needed when running inside a VM.
 
 # Intercom
 export INTERCOM_USER=hugo.ribeira
@@ -26,7 +26,12 @@ alias dc='docker-compose'
 alias rake="noglob rake"
 alias did="vim +'normal Go' +'r!date' ~/did.txt"
 
+tldr() {
+  curl "cht.sh/$1"
+}
+
 eval "$(rbenv init -)"
+
 export NVM_DIR="/home/ubuntu/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
@@ -36,6 +41,11 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$PATH:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin"
 
+# Prevent FZF from finding .gitignore'd files
+export FZF_DEFAULT_COMMAND='
+  ({git status --porcelain | sed s/^...// & git ls-tree -r --name-only HEAD;} ||
+   find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
+      sed s/^..//) 2> /dev/null'
 
 pids_of() {
   ps aux | grep $1 | grep -v grep | awk '{print $2}'
@@ -103,6 +113,7 @@ alias transfer=transfer
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git ruby rails capistrano coffee github rake-fast rake ssh-agent tmux asdf)
 
+source /usr/local/opt/asdf/asdf.sh
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -152,3 +163,8 @@ zstyle -e ':completion:*:(ssh|scp):*' hosts 'reply=(
 eval "$(scmpuff init -s)"
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export AWS_DEFAULT_REGION="us-east-1"
+source $(which assume-role)
+
+# added by travis gem
+[ -f /Users/hugoribeira/.travis/travis.sh ] && source /Users/hugoribeira/.travis/travis.sh

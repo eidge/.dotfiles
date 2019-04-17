@@ -28,6 +28,7 @@ call vundle#begin()
   Plugin 'tpope/vim-rhubarb'                                      " Hub binds for vim
   Plugin 'elixir-lang/vim-elixir'                                 " Elixir syntax highlighting and indentation
   Plugin 'slashmili/alchemist.vim'                                " Elixir autocomplete
+  Plugin 'mhinz/vim-mix-format'                                   " Run `mix format` automatically
   Plugin 'leafgarland/typescript-vim'                             " Typescript syntax highlighting and indentation
   Plugin 'pangloss/vim-javascript'                                " Javascript support
   Plugin 'othree/yajs.vim'                                        " Javascript syntax
@@ -42,6 +43,8 @@ call vundle#begin()
   Plugin 'nathanaelkane/vim-indent-guides'
   Plugin 'hashivim/vim-terraform'
   Plugin 'isRuslan/vim-es6'
+  Plugin 'editorconfig/editorconfig-vim'                          " Support for editorconfig
+
 
   " Colors
   Plugin 'altercation/Vim-colors-solarized'
@@ -233,6 +236,8 @@ let g:neomake_info_sign = {
       \ 'text': 'x'
       \ }
 
+let g:mix_format_on_save = 1
+
 " '❌' '⁉️' '⚠️' '💩
 
 " }}}
@@ -249,10 +254,16 @@ endfunction
 let g:test#custom_strategies = {'TmuxWithStatusStrategy': function('TmuxWithStatusStrategy')}
 let g:test#strategy = 'TmuxWithStatusStrategy'
 
+let test#elixir#exunit#file_pattern = 'test\.exs'
+let test#elixir#exunit#executable = 'mix test'
+
+let test#elixir#espec#file_pattern = 'test\.exs'
+let test#elixir#espec#executable = 'mix test'
+
 let test#javascript#mocha#file_pattern = '\.test\.js' " *.test.js are mocha test files
 let test#javascript#mocha#executable = 'mocha --opts .mocha.opts'
 
-let test#javascript#jest#file_pattern = '\.__tests__\/.*\.js' " *.test.js are mocha test files
+let test#javascript#jest#file_pattern = '.*\.test\.js' " *.test.js are mocha test files
 let test#javascript#jest#executable = 'jest'
 
 let test#filename_modifier = ':p' " Use absolute path for ExUnit tests

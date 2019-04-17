@@ -1,7 +1,7 @@
 # ~/.tmuxinator/no.yml
 
 name: int-int
-root: ~/src/intercom-integrations
+root: ~/src/intersection
 
 # Optional tmux socket
 # socket_name: foo
