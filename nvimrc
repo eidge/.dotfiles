@@ -44,7 +44,8 @@ call vundle#begin()
   Plugin 'hashivim/vim-terraform'
   Plugin 'isRuslan/vim-es6'
   Plugin 'editorconfig/editorconfig-vim'                          " Support for editorconfig
-
+  Plugin 'tpope/vim-projectionist'                                " Navigating to related files
+"  Plugin 'AndrewRadev/ember_tools.vim'                            " Ember gf
 
   " Colors
   Plugin 'altercation/Vim-colors-solarized'
@@ -55,6 +56,98 @@ filetype plugin indent on    " required for vundle
 " "}}}
 " Github {{{
 let g:gist_post_private = 1
+" }}}
+" Projectionist {{{
+let g:projectionist_heuristics = {
+      \ 'package.json&.ember-cli.js' : {
+      \    'app/initializers/*.js': {
+      \      'type': 'initializer'
+      \    },
+      \    'app/models/*.js': {
+      \      'type': 'model',
+      \      'alternate': 'app/adapters/{}.js'
+      \    },
+      \    'app/adapters/*.js': {
+      \      'type': 'adapter',
+      \      'alternate': 'app/serializers/{}.js'
+      \    },
+      \    'app/serializers/*.js': {
+      \      'type': 'serializer',
+      \      'alternate': 'app/models/{}.js'
+      \    },
+      \    'app/services/*.js': {
+      \      'type': 'service'
+      \    },
+      \    'app/routes/*.js': {
+      \      'type': 'route',
+      \      'alternate': 'app/controllers/{}.js'
+      \    },
+      \    'app/controllers/*.js': {
+      \      'type': 'controller',
+      \      'alternate': 'app/templates/{}.hbs'
+      \    },
+      \    'app/templates/*.hbs': {
+      \      'type': 'template',
+      \      'alternate': 'app/routes/{}.js'
+      \    },
+      \    'app/components/*.js': {
+      \      'type': 'component',
+      \      'alternate': 'app/templates/components/{}.hbs'
+      \    },
+      \    'app/components/*/component.js': {
+      \      'type': 'component',
+      \      'alternate': 'app/components/{}/template.hbs'
+      \    },
+      \    'app/templates/components/*.hbs': {
+      \      'type': 'ctemplate',
+      \      'alternate': 'app/components/{}.js'
+      \    }
+      \  },
+      \ 'mix.exs': {
+      \   'lib/*.ex': {
+      \     'type':      'src',
+      \     'alternate': 'test/{}_test.exs'
+      \   },
+      \   'test/*_test.exs': {
+      \     'type':      'test',
+      \     'alternate': 'lib/{}.ex'
+      \   }
+      \ },
+      \ 'package.json': {
+      \   "*.tsx": {
+      \     "alternate": "{dirname}/__tests__/{basename}.test.tsx",
+      \     "type": "source"
+      \   },
+      \   '**/__tests__/*.test.tsx': {
+      \     'type': 'test',
+      \     'alternate': '{}.tsx'
+      \   },
+      \   "*.jsx": {
+      \     "alternate": "{dirname}/__tests__/{basename}.test.jsx",
+      \     "type": "source"
+      \   },
+      \   '**/__tests__/*.test.jsx': {
+      \     'type': 'test',
+      \     'alternate': '{}.jsx'
+      \   },
+      \   "*.js": {
+      \     "alternate": "{dirname}/__tests__/{basename}.test.js",
+      \     "type": "source"
+      \   },
+      \   '**/__tests__/*.test.js': {
+      \     'type': 'test',
+      \     'alternate': '{}.js'
+      \   },
+      \   "*.ts": {
+      \     "alternate": "{dirname}/__tests__/{basename}.test.ts",
+      \     "type": "source"
+      \   },
+      \   '**/__tests__/*.test.ts': {
+      \     'type': 'test',
+      \     'alternate': '{}.ts'
+      \   }
+      \ }
+      \ }
 " }}}
 
 " Colors {{{

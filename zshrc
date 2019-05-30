@@ -2,7 +2,7 @@
 export ZSH=$HOME/.oh-my-zsh
 export TERM='xterm-256color'
 export EDITOR='nvim'
-export GOPATH=$HOME/go_code
+export GOPATH=$HOME/src
 export PATH="$GOPATH/bin:./node_modules/.bin/:./bin:$HOME/.rbenv/bin:$HOME/npm/bin:$HOME/.rbenv/shims:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/dasht/bin:$PATH"
 export LC_ALL="en_GB.UTF-8"
 # export BROWSER="echo" # This is only needed when running inside a VM.
