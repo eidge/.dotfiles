@@ -8,11 +8,13 @@ export LC_ALL="en_GB.UTF-8"
 
 source ~/.secrets
 # export BROWSER="echo" # This is only needed when running inside a VM.
+export BROWSER="echo" # This is only needed when running inside a VM.
 
 # Intercom
 export INTERCOM_USER=hugo.ribeira
 export PATH=$HOME/.pilot/bin:$PATH
-# eval $(pilot env)
+eval $(pilot env)
+eval "$(intercom-profile)"
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -67,6 +69,12 @@ transfer() {
   echo $RESPONSE
 };
 alias transfer=transfer
+#
+# Prevent FZF from finding .gitignore'd files
+export FZF_DEFAULT_COMMAND='
+  ({git status --porcelain | sed s/^...// & git ls-tree -r --name-only HEAD;} ||
+   find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
+      sed s/^..//) 2> /dev/null'
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -111,7 +119,6 @@ alias transfer=transfer
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git ruby rails capistrano coffee github rake-fast rake ssh-agent tmux asdf)
 
-source /usr/local/opt/asdf/asdf.sh
 source $ZSH/oh-my-zsh.sh
 
 # User configuration

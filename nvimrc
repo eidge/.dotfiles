@@ -85,13 +85,13 @@ let g:projectionist_heuristics = {
       \    },
       \    'app/components/*.js': {
       \      'type': 'component',
-      \      'alternate': 'app/templates/components/{}.hbs'
+      \      'alternate': 'app/components/{}.hbs'
       \    },
       \    'app/components/*/component.js': {
       \      'type': 'component',
       \      'alternate': 'app/components/{}/template.hbs'
       \    },
-      \    'app/templates/components/*.hbs': {
+      \    'app/components/*.hbs': {
       \      'type': 'ctemplate',
       \      'alternate': 'app/components/{}.js'
       \    }
@@ -158,6 +158,7 @@ set modelines=1   " Use comment config line
 set autowrite     " Automatically :write before running commands
 set history=50    " remember last 50 commands entered
 set pastetoggle=<F2>  " Set paste mode using F2 for copying stuff
+set re=1 " use the regex engine for syntax highlighting (the custom engine is slow on linux for some reason)
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -307,19 +308,19 @@ endfunction
 let g:test#custom_strategies = {'TmuxWithStatusStrategy': function('TmuxWithStatusStrategy')}
 let g:test#strategy = 'TmuxWithStatusStrategy'
 
+let test#ruby#rspec#executable = 'script/test -q'
+
 let test#elixir#exunit#file_pattern = 'test\.exs'
 let test#elixir#exunit#executable = 'mix test'
 
 let test#elixir#espec#file_pattern = 'test\.exs'
 let test#elixir#espec#executable = 'mix test'
 
-let test#javascript#mocha#file_pattern = '\.test\.js' " *.test.js are mocha test files
-let test#javascript#mocha#executable = 'mocha --opts .mocha.opts'
+let test#elixir#filename_modifier = ':p' " Use absolute path for ExUnit tests
 
-let test#javascript#jest#file_pattern = '.*\.test\.js' " *.test.js are mocha test files
-let test#javascript#jest#executable = 'jest'
+let test#javascript#jest#file_pattern = 'test\.js'
+let test#javascript#jest#executable = 'script/test-cli'
 
-let test#filename_modifier = ':p' " Use absolute path for ExUnit tests
 
 map <Leader>n :NERDTreeToggle<CR>
 map <leader>s :TestNearest<CR>
