@@ -16,7 +16,7 @@ call vundle#begin()
   Plugin 'rking/ag.vim'                                           " use Ag from vim
   Plugin 'danro/rename.vim'                                       " Rename files from vim
   Plugin 'tpope/vim-surround'                                     " Surround movements
-  Plugin 'tpope/vim-repeat'                                       " Surround movements
+  Plugin 'tpope/vim-repeat'                                       " Surround movements repeats
   Plugin 'tpope/vim-rails'                                        " Rails commands like migrations and partial extract
   Plugin 'jgdavey/tslime.vim'                                     " Send commands to tmux
   Plugin 'janko-m/vim-test'                                       " Test Runner
@@ -25,7 +25,6 @@ call vundle#begin()
   Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Proper auto complete (requires python3 pip3 `gem install neovim` && `pip3 install neovim`)
   Plugin 'rstacruz/sparkup.git'                                   " HTML fancy css like completion
   Plugin 'tpope/vim-fugitive'                                     " Git binds for vim
-  Plugin 'tpope/vim-rhubarb'                                      " Hub binds for vim
   Plugin 'elixir-lang/vim-elixir'                                 " Elixir syntax highlighting and indentation
   Plugin 'slashmili/alchemist.vim'                                " Elixir autocomplete
   Plugin 'mhinz/vim-mix-format'                                   " Run `mix format` automatically
@@ -45,7 +44,6 @@ call vundle#begin()
   Plugin 'isRuslan/vim-es6'
   Plugin 'editorconfig/editorconfig-vim'                          " Support for editorconfig
   Plugin 'tpope/vim-projectionist'                                " Navigating to related files
-"  Plugin 'AndrewRadev/ember_tools.vim'                            " Ember gf
 
   " Colors
   Plugin 'altercation/Vim-colors-solarized'
@@ -409,6 +407,8 @@ augroup configgroup
   autocmd BufEnter *.sh setlocal softtabstop=2
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile *.js* set filetype=javascript
+  autocmd BufRead,BufNewFile *.html.* set filetype=html
+  autocmd BufRead,BufNewFile *.leex set filetype=eelixir
   autocmd FileType markdown setlocal spell
   autocmd BufRead,BufNewFile *.md setlocal textwidth=80
   autocmd FileType go setlocal nolist
