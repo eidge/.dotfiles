@@ -7,6 +7,7 @@ filetype off                  " required for vundle
 set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
+  Plugin 'ChartaDev/charta.vim'
   Plugin 'VundleVim/Vundle.vim'                                   " required for vundle to work
   Plugin 'junegunn/fzf'                                           " like ctrlp but faster
   Plugin 'scrooloose/nerdtree'
