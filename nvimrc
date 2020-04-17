@@ -218,6 +218,9 @@ vnoremap <silent> # :<C-U>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 " }}}
 " CTRLP {{{
+
+" Use FZF with CTRLP
+let $FZF_DEFAULT_COMMAND = 'ag -g ""' " Ignore .gitignored files
 noremap <C-P> :FZF<CR>
 " }}}
 " Folding {{{
