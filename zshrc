@@ -5,6 +5,8 @@ export EDITOR='nvim'
 export GOPATH=$HOME/src
 export PATH="$GOPATH/bin:./node_modules/.bin/:./bin:$HOME/.rbenv/bin:$HOME/npm/bin:$HOME/.rbenv/shims:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/dasht/bin:$PATH"
 export LC_ALL="en_GB.UTF-8"
+
+source ~/.secrets
 # export BROWSER="echo" # This is only needed when running inside a VM.
 
 # Intercom
@@ -40,12 +42,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 export PATH="$PATH:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin"
-
-# Prevent FZF from finding .gitignore'd files
-export FZF_DEFAULT_COMMAND='
-  ({git status --porcelain | sed s/^...// & git ls-tree -r --name-only HEAD;} ||
-   find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
-      sed s/^..//) 2> /dev/null'
 
 pids_of() {
   ps aux | grep $1 | grep -v grep | awk '{print $2}'

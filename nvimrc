@@ -300,6 +300,7 @@ command! Tags call s:tags()
 " Completion {{{
 
 let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = "<c-n>"
 let g:jsx_ext_required = 0
 let g:deoplete#enable_at_startup = 1
 
