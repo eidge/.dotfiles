@@ -1,55 +1,44 @@
 " Hugo Ribeira
 
-" Vundle {{{
+" Bundle {{{
 set nocompatible              " be iMproved, required
 filetype off                  " required for vundle
 
-set rtp+=~/.vim/bundle/Vundle.vim
+if empty(glob('~/.nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-call vundle#begin()
-  Plugin 'ChartaDev/charta.vim'
-  Plugin 'VundleVim/Vundle.vim'                                   " required for vundle to work
-  Plugin 'junegunn/fzf'                                           " like ctrlp but faster
-  Plugin 'scrooloose/nerdtree'
-  Plugin 'jiangmiao/auto-pairs'                                   " match brackets
-  Plugin 'mattn/webapi-vim'                                       " needed for mattn/gist-vim
-  Plugin 'mattn/gist-vim'                                         " create gists from vim
-  Plugin 'rking/ag.vim'                                           " use Ag from vim
-  Plugin 'danro/rename.vim'                                       " Rename files from vim
-  Plugin 'tpope/vim-surround'                                     " Surround movements
-  Plugin 'tpope/vim-repeat'                                       " Surround movements repeats
-  Plugin 'tpope/vim-rails'                                        " Rails commands like migrations and partial extract
-  Plugin 'jgdavey/tslime.vim'                                     " Send commands to tmux
-  Plugin 'janko-m/vim-test'                                       " Test Runner
-  Plugin 'benekastah/neomake'                                     " Run linters async
-  Plugin 'ervandew/supertab'                                      " Tab for auto-completion
-  Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Proper auto complete (requires python3 pip3 `gem install neovim` && `pip3 install neovim`)
-  Plugin 'rstacruz/sparkup.git'                                   " HTML fancy css like completion
-  Plugin 'tpope/vim-fugitive'                                     " Git binds for vim
-  Plugin 'elixir-lang/vim-elixir'                                 " Elixir syntax highlighting and indentation
-  Plugin 'slashmili/alchemist.vim'                                " Elixir autocomplete
-  Plugin 'mhinz/vim-mix-format'                                   " Run `mix format` automatically
-  Plugin 'leafgarland/typescript-vim'                             " Typescript syntax highlighting and indentation
-  Plugin 'pangloss/vim-javascript'                                " Javascript support
-  Plugin 'othree/yajs.vim'                                        " Javascript syntax
-  Plugin 'mxw/vim-jsx'                                            " React support
-  Plugin 'MarcWeber/vim-addon-mw-utils'                           " Dependencies for snipmate
-  Plugin 'tomtom/tlib_vim'                                        " Dependencies for snipmate
-  Plugin 'garbas/vim-snipmate'                                    " Snippets engine
-  Plugin 'honza/vim-snippets'                                     " Snippets
-  Plugin 'sheerun/vim-polyglot'                                   " Support for all sorts of languages
-  Plugin 'machakann/vim-highlightedyank'                          " Highlight yanked text
-  Plugin 'joukevandermaas/vim-ember-hbs'                          " HBS support
-  Plugin 'nathanaelkane/vim-indent-guides'
-  Plugin 'hashivim/vim-terraform'
-  Plugin 'isRuslan/vim-es6'
-  Plugin 'editorconfig/editorconfig-vim'                          " Support for editorconfig
-  Plugin 'tpope/vim-projectionist'                                " Navigating to related files
+source ~/.nvim/autoload/plug.vim
+
+call plug#begin('~/.nvim/plugged')
+  Plug 'ChartaDev/charta.vim'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'junegunn/fzf'                                           " like ctrlp but faster
+  Plug 'scrooloose/nerdtree'
+  Plug 'jiangmiao/auto-pairs'                                   " match brackets
+  Plug 'mattn/webapi-vim'                                       " needed for mattn/gist-vim
+  Plug 'mattn/gist-vim'                                         " create gists from vim
+  Plug 'rking/ag.vim'                                           " use Ag from vim
+  Plug 'danro/rename.vim'                                       " Rename files from vim
+  Plug 'tpope/vim-surround'                                     " Surround movements
+  Plug 'tpope/vim-repeat'                                       " Surround movements repeats
+  Plug 'tpope/vim-rails'                                        " Rails commands like migrations and partial extract
+  Plug 'jgdavey/tslime.vim'                                     " Send commands to tmux
+  Plug 'janko-m/vim-test'                                       " Test Runner
+  Plug 'ervandew/supertab'                                      " Tab for auto-completion
+  Plug 'rstacruz/sparkup.git'                                   " HTML fancy css like completion
+  Plug 'tpope/vim-fugitive'                                     " Git binds for vim
+  Plug 'machakann/vim-highlightedyank'                          " Highlight yanked text
+  Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'editorconfig/editorconfig-vim'                          " Support for editorconfig
+  Plug 'sheerun/vim-polyglot'                                   " Highlighting and syntax for most languages
 
   " Colors
-  Plugin 'altercation/Vim-colors-solarized'
-  Plugin 'jpo/vim-railscasts-theme'
-call vundle#end()            " required
+  Plug 'altercation/Vim-colors-solarized'
+  Plug 'jpo/vim-railscasts-theme'
+call plug#end()
 
 filetype plugin indent on    " required for vundle
 " "}}}
@@ -224,11 +213,12 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""' " Ignore .gitignored files
 noremap <C-P> :FZF<CR>
 " }}}
 " Folding {{{
-"=== folding ===
+
 set foldmethod=marker   " fold based on indent level
 set foldlevelstart=0    " start with fold level of 1
-nnoremap <space> za
-" }}}
+nnoremap <space> za     " toggle fold
+
+"}}}
 " Line Shortcuts {{{
 " Use visual line movements
 nnoremap j gj
@@ -264,77 +254,35 @@ set nobackup
 set nowritebackup
 set noswapfile
 " "}}}
-" Ctags {{{
-let Tlist_Show_One_File=1
-let g:gutentags_cache_dir = '~/.tags_cache'
-let g:gutentags_ctags_exclude = 'node_modules'
-
-" Expose `Tags` command to open ctags in FZF
-function! s:tags_sink(line)
-  let parts = split(a:line, '\t\zs')
-  let excmd = matchstr(parts[2:], '^.*\ze;"\t')
-  execute 'silent e' parts[1][:-2]
-  let [magic, &magic] = [&magic, 0]
-  execute excmd
-  let &magic = magic
-endfunction
-
-function! s:tags()
-  if empty(tagfiles())
-    echohl WarningMsg
-    echom 'Preparing tags'
-    echohl None
-    call system('ctags -R')
-  endif
-
-  call fzf#run({
-  \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
-  \            '| grep -v -a ^!',
-  \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
-  \ 'down':    '40%',
-  \ 'sink':    function('s:tags_sink')})
-endfunction
-
-command! Tags call s:tags()
-" }}}
-" Completion {{{
+" SuperTab {{{
 
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabDefaultCompletionType = "<c-n>"
-let g:jsx_ext_required = 0
-let g:deoplete#enable_at_startup = 1
 
 " }}}
-" Syntax Checker {{{
+" CoC {{{
+let g:coc_global_extensions = [
+\ 'coc-tsserver',
+\ 'coc-prettier',
+\ 'coc-eslint',
+\ 'coc-elixir',
+\ 'coc-solargraph',
+\ 'coc-html',
+\ 'coc-css',
+\ 'coc-json',
+\ 'coc-ember',
+\ 'coc-highlight',
+\]
 
-let g:neomake_list_height = 3
-let g:neomake_open_list = 0
-let g:neomake_serialize = 0
-let g:neomake_serialize_abort_on_error = 1
-let g:neomake_verbose = 0
-let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
-let g:neomake_javascript_eslint_exe = system('PATH=$(npm bin):$PATH && which eslint | tr -d "\n"')
-let g:neomake_ruby_enabled_checkers = ['rubocop', 'mri']
+nnoremap <silent> K :call CocAction('doHover')<CR>
 
-let g:neomake_error_sign = {
-      \ 'text': 'x'
-      \ }
-
-let g:neomake_warning_sign = {
-      \ 'text': 'x'
-      \ }
-
-let g:neomake_message_sign = {
-      \ 'text': 'x'
-      \ }
-
-let g:neomake_info_sign = {
-      \ 'text': 'x'
-      \ }
-
-let g:mix_format_on_save = 1
-
-" '❌' '⁉️' '⚠️' '💩
+map gd <Plug>(coc-definition)
+map gt <Plug>(coc-type-definition)
+map gr <Plug>(coc-references)
+map gr <Plug>(coc-references)
+map <Leader>cl :CocList<CR>
+map <Leader>cd :CocList diagnostics<CR>
+map <Leader>do <Plug>(coc-codeaction)
 
 " }}}
 " Testing {{{
@@ -364,29 +312,19 @@ let test#javascript#jest#executable = 'jest'
 
 let test#filename_modifier = ':p' " Use absolute path for ExUnit tests
 
-" }}}
-" Leader Shortcuts {{{
-let mapleader="," " leader is comma
-
 map <Leader>n :NERDTreeToggle<CR>
-
-map <Leader>c g:deoplete#mappings#close_popup()<CR>
-
-"ctags
-map <Leader>ct :!ctags -R --exclude='vendor/**/*' --exclude='node_modules/**/*' .<CR>
-map <Leader><Tab> :TlistOpen<CR>
-map <Leader>gd tjump<CR>
-map <Leader>gd "zyiw:exe "tj ".@z.""<CR>
-
 map <leader>s :TestNearest<CR>
 map <leader>t :TestFile<CR>
 map <leader>l :TestLast<CR>
 map <leader>a :TestSuite<CR>
 map <leader>gt :TestVisit<CR>
 
+" }}}
+" Random leader shortcuts {{{
+let mapleader="," " leader is comma
 
 " Hide search matches
-map <Leader> :noh<CR>
+map <Leader><space> :noh<CR>
 map <leader>vr :set cursorcolumn!<Bar>set cursorline!<CR>
 
 nnoremap <leader>v :source $MYVIMRC<CR>
@@ -418,8 +356,5 @@ augroup configgroup
   autocmd BufRead,BufNewFile *.md setlocal textwidth=80
   autocmd FileType go setlocal nolist
   autocmd FileType javascript.jsx runtime! ftplugin/html/sparkup.vim " Enable sparkup for jsx files
-
-  autocmd! BufWritePost * Neomake
-  autocmd! BufReadPost * Neomake
 augroup END
 "}}}
