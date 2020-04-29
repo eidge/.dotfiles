@@ -28,12 +28,13 @@ call plug#begin('~/.nvim/plugged')
   Plug 'jgdavey/tslime.vim'                                     " Send commands to tmux
   Plug 'janko-m/vim-test'                                       " Test Runner
   Plug 'ervandew/supertab'                                      " Tab for auto-completion
-  Plug 'rstacruz/sparkup.git'                                   " HTML fancy css like completion
+  Plug 'rstacruz/sparkup'                                   " HTML fancy css like completion
   Plug 'tpope/vim-fugitive'                                     " Git binds for vim
   Plug 'machakann/vim-highlightedyank'                          " Highlight yanked text
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'editorconfig/editorconfig-vim'                          " Support for editorconfig
   Plug 'sheerun/vim-polyglot'                                   " Highlighting and syntax for most languages
+  Plug 'tpope/vim-projectionist'                                " Navigate between alternate files (test -> impl, etc)
 
   " Colors
   Plug 'altercation/Vim-colors-solarized'
