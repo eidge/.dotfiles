@@ -1,8 +1,9 @@
 {
+  "codeLens.enable": true,
   "solargraph.completion": true,
   "solargraph.diagnostics": true,
-  "solargraph.autoformat": true,
-  "solargraph.formatting": true,
+  "solargraph.autoformat": false,
+  "solargraph.formatting": false,
   "solargraph.hover": true,
   "eslint.autoFixOnSave": true,
   "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],

@@ -69,7 +69,7 @@ transfer() {
   echo $RESPONSE
 };
 alias transfer=transfer
-#
+
 # Prevent FZF from finding .gitignore'd files
 export FZF_DEFAULT_COMMAND='
   ({git status --porcelain | sed s/^...// & git ls-tree -r --name-only HEAD;} ||
