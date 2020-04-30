@@ -43,6 +43,9 @@ call plug#end()
 
 filetype plugin indent on    " required for vundle
 " "}}}
+
+let mapleader="," " leader is comma
+
 " Github {{{
 let g:gist_post_private = 1
 " }}}
@@ -281,9 +284,9 @@ map gd <Plug>(coc-definition)
 map gt <Plug>(coc-type-definition)
 map gr <Plug>(coc-references)
 map gr <Plug>(coc-references)
-map <Leader>cl :CocList<CR>
-map <Leader>cd :CocList diagnostics<CR>
-map <Leader>do <Plug>(coc-codeaction)
+noremap <Leader>cl :CocList<CR>
+noremap <Leader>cd :CocList diagnostics<CR>
+noremap <Leader>do <Plug>(coc-codeaction)
 
 " }}}
 " Testing {{{
@@ -322,7 +325,6 @@ map <leader>gt :TestVisit<CR>
 
 " }}}
 " Random leader shortcuts {{{
-let mapleader="," " leader is comma
 
 " Hide search matches
 map <Leader><space> :noh<CR>
