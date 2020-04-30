@@ -30,6 +30,7 @@ call plug#begin('~/.nvim/plugged')
   Plug 'ervandew/supertab'                                      " Tab for auto-completion
   Plug 'rstacruz/sparkup'                                   " HTML fancy css like completion
   Plug 'tpope/vim-fugitive'                                     " Git binds for vim
+  Plug 'tpope/vim-rhubarb'                                      " Gbrowse & friends
   Plug 'machakann/vim-highlightedyank'                          " Highlight yanked text
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'editorconfig/editorconfig-vim'                          " Support for editorconfig
