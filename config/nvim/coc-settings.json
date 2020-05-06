@@ -7,9 +7,12 @@
     "javascript",
     "javascriptreact",
     "typescript",
-    "typescriptreact"
+    "typescriptreact",
+    "elixir",
+    "ruby"
   ],
+  "coc.preferences.formatOnType": true,
   "tsserver.enableJavascript": false,
   "tsserver.formatOnType": true,
-  "coc.preferences.formatOnType": true
+  "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh"
 }

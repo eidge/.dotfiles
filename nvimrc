@@ -28,7 +28,7 @@ call plug#begin('~/.nvim/plugged')
   Plug 'jgdavey/tslime.vim'                                     " Send commands to tmux
   Plug 'janko-m/vim-test'                                       " Test Runner
   Plug 'ervandew/supertab'                                      " Tab for auto-completion
-  Plug 'rstacruz/sparkup'                                   " HTML fancy css like completion
+  Plug 'rstacruz/sparkup'                                       " HTML fancy css like completion
   Plug 'tpope/vim-fugitive'                                     " Git binds for vim
   Plug 'tpope/vim-rhubarb'                                      " Gbrowse & friends
   Plug 'machakann/vim-highlightedyank'                          " Highlight yanked text
@@ -141,6 +141,9 @@ let g:projectionist_heuristics = {
       \   }
       \ }
       \ }
+" }}}
+" Charta {{{
+let g:charta_api_token=$CHARTA_TOKEN
 " }}}
 
 " Colors {{{
