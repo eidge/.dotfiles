@@ -290,7 +290,7 @@ map gr <Plug>(coc-references)
 map gr <Plug>(coc-references)
 noremap <Leader>cl :CocList<CR>
 noremap <Leader>cd :CocList diagnostics<CR>
-noremap <Leader>do <Plug>(coc-codeaction)
+nmap <Leader>do <Plug>(coc-codeaction)
 
 " }}}
 " Testing {{{

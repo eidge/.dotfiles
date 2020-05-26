@@ -27,6 +27,7 @@ alias be='bundle exec'
 alias dc='docker-compose'
 alias rake="noglob rake"
 alias did="vim +'normal Go' +'r!date' ~/did.txt"
+alias iex='iex --erl "-kernel shell_history enabled"'
 
 tldr() {
   curl "cht.sh/$1"
