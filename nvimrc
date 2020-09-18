@@ -297,9 +297,9 @@ nmap <Leader>do <Plug>(coc-codeaction)
 " Testing {{{
 
 function! TmuxWithStatusStrategy(cmd)
-  let running_cmd = 'tmux set -g status-left-fg white && tmux set -g status-left "  Running ' . a:cmd . '"'
-  let success_cmd = 'tmux set -g status-left "  Tests passed" && tmux set -g status-left-fg green'
-  let failure_cmd = 'tmux set -g status-left "  Tests failed" && tmux set -g status-left-fg red'
+  let running_cmd = 'tmux set -g status-left-style fg=white && tmux set -g status-left "  Running ' . a:cmd . '"'
+  let success_cmd = 'tmux set -g status-left "  Tests passed" && tmux set -g status-left-style fg=green'
+  let failure_cmd = 'tmux set -g status-left "  Tests failed" && tmux set -g status-left-style fg=red'
 
   call Send_to_Tmux('clear; ' . l:running_cmd . " && ( SKIP_FG='true' " . a:cmd . " && " . l:success_cmd .") || (" . l:failure_cmd .")\n")
 endfunction
