@@ -12,7 +12,7 @@ source ~/.secrets
 # Intercom
 export INTERCOM_USER=hugo.ribeira
 export PATH=$HOME/.pilot/bin:$PATH
-eval $(pilot env)
+# eval $(pilot env)
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -42,28 +42,29 @@ export NVM_DIR="/home/ubuntu/.nvm"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
-export PATH="$PATH:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/node_modules/.bin"
+export PATH="./node_modules/.bin:$PATH"
 
 pids_of() {
   ps aux | grep $1 | grep -v grep | awk '{print $2}'
 }
 
 transfer() {
-  if [ $# -eq 0  ]; then
-    echo "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md";
-    return 1;
+  URL="https://0x0.st"
+
+  if [ $# -eq 0 ]; then
+      echo "Usage: 0x0.st FILE\n"
+      exit 1
   fi
 
-  tmpfile=$( mktemp -t transferXXX  );
+  FILE=$1
 
-  if tty -s; then
-    basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g');
-    curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile;
-  else
-    curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ;
-  fi;
+  if [ ! -f "$FILE" ]; then
+      echo "File ${FILE} not found"
+      exit 1
+  fi
 
-  cat $tmpfile; rm -f $tmpfile;
+  RESPONSE=$(curl -# -F "file=@${FILE}" "${URL}")
+  echo $RESPONSE
 };
 alias transfer=transfer
 
@@ -165,3 +166,5 @@ source $(which assume-role)
 
 # added by travis gem
 [ -f /Users/hugoribeira/.travis/travis.sh ] && source /Users/hugoribeira/.travis/travis.sh
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
