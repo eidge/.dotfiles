@@ -27,7 +27,7 @@
   today = log --since=00:00:00 --all --no-merges --oneline --author=hugoribeira@gmail.com
   week = log --since='1 weeks' --all --no-merges --oneline --author=hugoribeira@gmail.com
   pr = !hub pull-request
-  st = !scmpuff status
+  st = status
   up = !git fetch origin && git rebase origin/master
 	quick-stats = ! /usr/local/bin/git-quick-stats
 [core]
