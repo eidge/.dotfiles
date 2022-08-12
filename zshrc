@@ -5,6 +5,7 @@ export EDITOR='nvim'
 export GOPATH=$HOME/src
 export PATH="$GOPATH/bin:./node_modules/.bin/:./bin:$HOME/.rbenv/bin:$HOME/npm/bin:$HOME/.rbenv/shims:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/dasht/bin:$PATH"
 export LC_ALL="en_GB.UTF-8"
+export KERL_BUILD_DOCS=yes # Compile erlang with docs
 
 source ~/.secrets
 # export BROWSER="echo" # This is only needed when running inside a VM.
@@ -28,6 +29,7 @@ alias dc='docker-compose'
 alias rake="noglob rake"
 alias did="vim +'normal Go' +'r!date' ~/did.txt"
 alias iex='iex --erl "-kernel shell_history enabled"'
+alias assume-role='function(){eval $(hammer assume-role $@);}'
 
 tldr() {
   curl "cht.sh/$1"
@@ -162,7 +164,6 @@ eval "$(scmpuff init -s)"
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export AWS_DEFAULT_REGION="us-east-1"
-source $(which assume-role)
 
 # added by travis gem
 [ -f /Users/hugoribeira/.travis/travis.sh ] && source /Users/hugoribeira/.travis/travis.sh
