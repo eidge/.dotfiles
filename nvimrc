@@ -86,13 +86,13 @@ let g:projectionist_heuristics = {
       \    },
       \    'app/components/*.js': {
       \      'type': 'component',
-      \      'alternate': 'app/templates/components/{}.hbs'
+      \      'alternate': 'app/components/{}.hbs'
       \    },
       \    'app/components/*/component.js': {
       \      'type': 'component',
       \      'alternate': 'app/components/{}/template.hbs'
       \    },
-      \    'app/templates/components/*.hbs': {
+      \    'app/components/*.hbs': {
       \      'type': 'ctemplate',
       \      'alternate': 'app/components/{}.js'
       \    }
@@ -313,16 +313,16 @@ let test#elixir#exunit#executable = 'mix test'
 
 let test#elixir#espec#file_pattern = 'test\.exs'
 let test#elixir#espec#executable = 'mix test'
+let test#elixir#filename_modifier = ':p' " Use absolute path for ExUnit tests
 
 let test#javascript#mocha#file_pattern = '\.test\.js' " *.test.js are mocha test files
 let test#javascript#mocha#executable = 'mocha --opts .mocha.opts'
 
-let test#javascript#jest#file_pattern = '.*\.test\.js' " *.test.js are mocha test files
+let test#javascript#jest#file_pattern = '.*\._test\.js' " *.test.js are mocha test files
 let test#javascript#jest#executable = 'jest'
 
-let test#filename_modifier = ':p' " Use absolute path for ExUnit tests
-
 map <Leader>n :NERDTreeToggle<CR>
+map <Leader>f :NERDTreeFind<CR>
 map <leader>s :TestNearest<CR>
 map <leader>t :TestFile<CR>
 map <leader>l :TestLast<CR>
@@ -367,3 +367,13 @@ augroup configgroup
   autocmd FileType javascript.jsx runtime! ftplugin/html/sparkup.vim " Enable sparkup for jsx files
 augroup END
 "}}}
+" Intercom overrides {{{
+if filereadable("script/test-cli")
+  let test#javascript#jest#file_pattern = 'test\.js'
+  let test#javascript#jest#executable = 'script/test-cli'
+endif
+
+if filereadable("script/test")
+  let test#ruby#rspec#executable = 'script/test -q'
+endif
+" }}}

@@ -20,7 +20,7 @@ root: ~/src/embercom
 
 windows:
   - editor: vim
-  - shell: script/update
-  - console: script/console
-  - server: script/server
+  - shell: ls
+  - console: ls
+  - server: pilot restart embercom
   - spec: ls
