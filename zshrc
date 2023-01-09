@@ -28,15 +28,11 @@ tldr() {
   curl "cht.sh/$1"
 }
 
-which rbenv && eval "$(rbenv init -)"
+which rbenv > /dev/null && eval "$(rbenv init -)"
 
-export NVM_DIR="/home/ubuntu/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-# For mac, I need to split this for both machines
 export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[ -s "$NVM_DIR" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 pids_of() {
   ps aux | grep $1 | grep -v grep | awk '{print $2}'
@@ -105,7 +101,6 @@ alias transfer=transfer
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git ruby rails capistrano coffee github rake-fast rake ssh-agent tmux asdf)
 
-
 # Load ASDF
 ASDF_SH="/usr/local/opt/asdf/asdf.sh"
 
@@ -161,9 +156,6 @@ zstyle -e ':completion:*:(ssh|scp):*' hosts 'reply=(
       ${=${(f)"$(cat /etc/hosts(|)(N) <<(ypcat hosts 2>/dev/null))"}%%\#*}
       ${=${${${${(@M)${(f)"$(<~/.ssh/config)"}:#Host *}#Host }:#*\**}:#*\?*}}
       )'
-which scmpuff && eval "$(scmpuff init -s)"
-
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 source ~/.secrets
 source ~/.zshrc.intercom
