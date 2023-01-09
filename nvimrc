@@ -322,7 +322,7 @@ let test#javascript#jest#file_pattern = 'test\.js'
 let test#javascript#jest#executable = 'script/test-cli'
 
 
-map <Leader>n :NERDTreeToggle<CR>
+map <Leader>n :NERDTreeFind<CR>
 map <leader>s :TestNearest<CR>
 map <leader>t :TestFile<CR>
 map <leader>l :TestLast<CR>

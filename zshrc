@@ -3,8 +3,11 @@ export ZSH=$HOME/.oh-my-zsh
 export TERM='xterm-256color'
 export EDITOR='nvim'
 export GOPATH=$HOME/src
-export PATH="$GOPATH/bin:./node_modules/.bin/:./bin:$HOME/.rbenv/bin:$HOME/npm/bin:$HOME/.rbenv/shims:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/dasht/bin:$PATH"
+export PATH="./node_modules/.bin/:./bin:$GOPATH/bin:$HOME/.rbenv/bin:$HOME/npm/bin:$HOME/.rbenv/shims:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/dasht/bin:$PATH"
 export LC_ALL="en_GB.UTF-8"
+
+# Prepend brew bin folder to override system binaries
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 source ~/.secrets
 # export BROWSER="echo" # This is only needed when running inside a VM.
@@ -30,6 +33,8 @@ alias dc='docker-compose'
 alias rake="noglob rake"
 alias did="vim +'normal Go' +'r!date' ~/did.txt"
 alias iex='iex --erl "-kernel shell_history enabled"'
+alias assume-role='function(){eval $(hammer assume-role $@);}'
+alias server='python3 -m http.server'
 
 tldr() {
   curl "cht.sh/$1"
@@ -37,14 +42,10 @@ tldr() {
 
 eval "$(rbenv init -)"
 
-export NVM_DIR="/home/ubuntu/.nvm"
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-# For mac, I need to split this for both machines
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-export PATH="./node_modules/.bin:$PATH"
+export PATH="$PATH:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin"
 
 pids_of() {
   ps aux | grep $1 | grep -v grep | awk '{print $2}'
@@ -168,10 +169,7 @@ zstyle -e ':completion:*:(ssh|scp):*' hosts 'reply=(
 eval "$(scmpuff init -s)"
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export AWS_DEFAULT_REGION="us-east-1"
-source $(which assume-role)
+export AWS_DEFAULT_REGION="us-east-1";
 
 # added by travis gem
 [ -f /Users/hugoribeira/.travis/travis.sh ] && source /Users/hugoribeira/.travis/travis.sh
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
