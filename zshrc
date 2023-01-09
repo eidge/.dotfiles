@@ -35,7 +35,7 @@ tldr() {
   curl "cht.sh/$1"
 }
 
-eval "$(rbenv init -)"
+which rbenv && eval "$(rbenv init -)"
 
 export NVM_DIR="/home/ubuntu/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -114,7 +114,16 @@ alias transfer=transfer
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git ruby rails capistrano coffee github rake-fast rake ssh-agent tmux asdf)
 
-source /usr/local/opt/asdf/asdf.sh
+
+# Load ASDF
+ASDF_SH="/usr/local/opt/asdf/asdf.sh"
+
+if [ -f "$ASDF_SH" ]; then
+  source "$ASDF_SH"
+else
+  echo "ASDF not found"
+fi
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -161,7 +170,7 @@ zstyle -e ':completion:*:(ssh|scp):*' hosts 'reply=(
       ${=${(f)"$(cat /etc/hosts(|)(N) <<(ypcat hosts 2>/dev/null))"}%%\#*}
       ${=${${${${(@M)${(f)"$(<~/.ssh/config)"}:#Host *}#Host }:#*\**}:#*\?*}}
       )'
-eval "$(scmpuff init -s)"
+which scmpuff && eval "$(scmpuff init -s)"
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export AWS_DEFAULT_REGION="us-east-1"
