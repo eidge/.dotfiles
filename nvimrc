@@ -36,6 +36,7 @@ call plug#begin('~/.nvim/plugged')
   Plug 'editorconfig/editorconfig-vim'                          " Support for editorconfig
   Plug 'sheerun/vim-polyglot'                                   " Highlighting and syntax for most languages
   Plug 'tpope/vim-projectionist'                                " Navigate between alternate files (test -> impl, etc)
+  Plug 'github/copilot.vim'                                     " Github's Copilot
 
   " Colors
   Plug 'altercation/Vim-colors-solarized'
