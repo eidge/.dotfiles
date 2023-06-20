@@ -159,6 +159,7 @@ set modelines=1   " Use comment config line
 set autowrite     " Automatically :write before running commands
 set history=50    " remember last 50 commands entered
 set pastetoggle=<F2>  " Set paste mode using F2 for copying stuff
+set mouse=        " Disable mouse
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')

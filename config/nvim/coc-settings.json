@@ -1,4 +1,5 @@
 {
+  "diagnostic.checkCurrentLine": true,
   "codeLens.enable": true,
   "solargraph.completion": true,
   "solargraph.diagnostics": true,

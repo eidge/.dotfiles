@@ -1,6 +1,28 @@
 export INTERCOM_USER=hugo.ribeira
 
 alias assume-role='function(){eval $(hammer assume-role $@);}'
+alias start="~/start"
+
+export MODE="local"
+export AWS_DEFAULT_REGION="us-east-1"
+
+export PATH=/opt/homebrew/bin:$PATH
+eval $(pilot env)
+
+# token with access to private intercom repositories
+export INTERCOM_GITHUB_API_TOKEN=$(cat /Users/hugo/.intercom_github_api_token | tr -d '\n')
+
+# Use Hammer for assume-role
+alias assume-role='function(){eval $(hammer assume-role $@);}'
+
+# Use Interstack v2 for Pilot
+export PILOT_USE_INTERSTACK_V2=true
+
+# initialize pilot environment variables
+eval $(pilot env)
+if [ -e ~/.pilot/stack/.pilot-env ]; then
+  source ~/.pilot/stack/.pilot-env
+fi
 
 if [[ $(uname -a) == *"Linux"* ]]; then
   # Running on the CDE
@@ -8,7 +30,6 @@ if [[ $(uname -a) == *"Linux"* ]]; then
   export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
   export BROWSE="echo"
-  export AWS_DEFAULT_REGION="us-east-1"
 
   eval $(pilot env)
   eval $(intercom-profile env)
