@@ -22,5 +22,5 @@ windows:
   - editor: vim
   - shell: ls
   - console: script/console
-  - server: pilot restart intercom
+  - server: script/server
   - spec: ls

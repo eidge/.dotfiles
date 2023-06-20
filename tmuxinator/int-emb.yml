@@ -22,5 +22,5 @@ windows:
   - editor: vim
   - shell: ls
   - console: ls
-  - server: pilot restart embercom
+  - server: script/server
   - spec: ls

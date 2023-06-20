@@ -102,7 +102,7 @@ alias transfer=transfer
 plugins=(git ruby rails capistrano coffee github rake-fast rake ssh-agent tmux asdf)
 
 # Load ASDF
-ASDF_SH="/usr/local/opt/asdf/asdf.sh"
+ASDF_SH="$(brew --prefix asdf)/libexec/asdf.sh"
 
 if [ -f "$ASDF_SH" ]; then
   source "$ASDF_SH"
